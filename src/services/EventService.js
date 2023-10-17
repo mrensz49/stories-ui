@@ -60,4 +60,8 @@ export default {
         return apiClient.get(`/popular5`)
     },
 
+    getMoralLesson(page) {
+        return apiClient.get(`/moral_lessons?page=${page}`)
+    },
+
 }

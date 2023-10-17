@@ -12,6 +12,7 @@ export const useCategoryStore = defineStore({
         category: [],
         latest5: [],
         moral_lesson3: [],
+        moral_lessons: [],
         popular5: [],
         errors: [],
         loading_rec: false,
@@ -140,6 +141,22 @@ export const useCategoryStore = defineStore({
             EventService.getPopular5()
             .then(response => {
                 this.popular5 = response.data;
+                this.loading = false
+            })
+            .catch(error => {
+                if (typeof error.response !== 'undefined') {
+                    this.errors = error.response.data.errors
+                }
+
+                this.loading = false
+            })
+        },
+
+        getMoralLesson(page) {
+            this.loading = true
+            EventService.getMoralLesson(page)
+            .then(response => {
+                this.moral_lessons = response.data;
                 this.loading = false
             })
             .catch(error => {

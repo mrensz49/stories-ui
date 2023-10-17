@@ -1,5 +1,6 @@
 <template>
     <div >
+
       <v-row v-if="typeof categoryStore.category.category !== 'undefined'">
         <v-col cols="12" lg="12" xl="8">
           <div v-if="!this.$route.query.q">
@@ -67,7 +68,7 @@
                 </v-col>
 
               </v-row>
-              <skeletonLoaderCard v-if="categoryStore.loading"/>
+
           </div>
         </div>
 
@@ -80,6 +81,9 @@
           </div>
         </v-col>
       </v-row>
+      <v-col cols="8" lg="8" xl="8">
+        <skeletonLoaderCard v-if="categoryStore.loading"/>
+      </v-col>
     </div>
   </template>
 

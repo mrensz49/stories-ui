@@ -21,9 +21,11 @@
             <div>
               <v-btn depressed color="accent" small :to="'/category/'+category.slug">{{ category.category }}</v-btn>
 
-              <h3 class="text-h6 font-weight-bold primary--text py-3">
-                {{ category.title }}
-              </h3>
+              <router-link :to="'/category/'+category.slug+'?q='+category.title_slug" class="text-decoration-none">
+                <h3 class="text-h6 font-weight-bold primary--text py-3">
+                  {{ category.title }}
+                </h3>
+              </router-link>
 
               <!-- <div class="d-flex align-center">
                 <v-avatar color="accent" size="24">

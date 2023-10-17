@@ -59,9 +59,8 @@
                 style="cursor: pointer"
                 @click="$router.push('/').catch(()=>{})"
             >
-              <v-icon color="primary" large>mdi-book</v-icon>
-              Stories 4
-              <span class="accent--text">US</span>
+              <v-icon color="warning" large>mdi-book</v-icon>
+              Stories<sup class="accent--text">4U</sup>
             </v-toolbar-title>
           </v-col>
 
@@ -117,6 +116,10 @@ export default {
       {
         title: "Category",
         to: "/categories",
+      },
+      {
+        title: "Moral Lesson",
+        to: "/moral-lesson",
       },
     ],
   }),
