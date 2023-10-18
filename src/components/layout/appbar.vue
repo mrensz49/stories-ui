@@ -11,7 +11,7 @@
       <v-list color="primary" nav>
         <v-list-item
             v-for="(item, i) in btnItems"
-            :key="i"
+            :key="'nav_'+i"
             :href="item.href"
             :target="item.target"
             :to="item.to"
@@ -23,7 +23,7 @@
         </v-list-item>
         <v-list-item
             v-for="(item, i) in barItems"
-            :key="i"
+            :key="'bar_'+i"
             :href="item.href"
             :target="item.target"
             :to="item.to"
@@ -39,7 +39,7 @@
     <v-app-bar
         :clipped-left="$vuetify.breakpoint.lgAndUp"
         app
-        color="white"
+        color="#f5ecbc"
         elevate-on-scroll
         flat
     >
@@ -67,7 +67,7 @@
           <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="6">
             <v-btn
                 v-for="(item, i) in barItems"
-                :key="i"
+                :key="'bi_'+i"
                 :to="item.to"
                 class="text-capitalize"
                 exact
@@ -81,10 +81,11 @@
           <v-col v-if="$vuetify.breakpoint.mdAndUp" class="text-right">
             <v-btn
                 v-for="(item, i) in btnItems"
-                :key="i"
+                :key="'btn_'+i"
                 :color="item.color"
                 :outlined="item.outlined"
                 class="ml-3 text-capitalize"
+                @click="categoryStore.searchDialog = true"
             >
               <v-icon left>{{ item.icon }}</v-icon>
               {{ item.text }}
@@ -93,13 +94,19 @@
           </v-col>
         </v-row>
       </v-container>
+      <searchModal/>
     </v-app-bar>
   </div>
 </template>
 
 <script>
+
+import { useCategoryStore } from '@/stores/category'
+
 export default {
   data: () => ({
+    categoryStore: useCategoryStore(),
+
     drawer: null,
     btnItems: [
       {
@@ -123,5 +130,9 @@ export default {
       },
     ],
   }),
+
+  components: {
+    searchModal: () => import("@/components/modals/Search"),
+  },
 };
 </script>

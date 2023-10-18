@@ -18,6 +18,7 @@ export const useCategoryStore = defineStore({
         loading_rec: false,
         loading_page: false,
         loading: false,
+        searchDialog:false,
     }),
 
     actions: {

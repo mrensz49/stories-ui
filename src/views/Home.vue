@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <v-card to="detail">
+      <v-card>
         <v-img
             :aspect-ratio="16 / 9"
             dark

@@ -7,10 +7,22 @@
             <div>
                 <v-img
                   :src="'/images/bg/' + categoryStore.category.category.image"
-                  :aspect-ratio="16 / 9"
+                  :aspect-ratio="16 / 5"
                   gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
                   style="border-radius: 16px"
-                ></v-img>
+                  dark
+                >
+                <v-card-text class="fill-height d-flex align-end">
+                  <v-row class="flex-column">
+                    <v-col cols="12" lg="8" md="10" xl="7">
+                      <h2 class="text-h3 py-3" style="line-height: 1.2">
+                        Reading is a journey, and every story is a new destination.
+                      </h2>
+                    </v-col>
+
+                  </v-row>
+                </v-card-text>
+              </v-img>
 
                 <div class="py-4">
                     <v-btn color="accent">{{ categoryStore.category.category.category }}</v-btn>
@@ -120,7 +132,7 @@
         "$route" : function(){
           if (this.$route.params.name) {
             this.categoryStore.getNewPage({
-              name: this.categoryStore.category.category.slug,
+              name: this.$route.params.name,
               page: parseInt(this.categoryStore.category.contents.current_page)
             })
           }

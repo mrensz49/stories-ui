@@ -128,12 +128,7 @@
         categoryStore: useCategoryStore()
       }
     },
-    methods: {
 
-      // newPage(name) {
-      //   this.$router.push('./'+name).catch(()=>{});
-      // }
-    },
   };
 
 </script>
