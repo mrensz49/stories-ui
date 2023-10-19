@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-let time_out = 5000
+let time_out = 10000
 const apiClient = axios.create({
-    // baseURL: process.env.NODE_ENV == 'development'
-    //         ? process.env.VUE_APP_URL : 'https://rscheduling.xyz/be/',
-      baseURL: `http://stories-v2.test/`,
+    baseURL: import.meta.env.VITE_NODE_ENV == 'development'
+            ? import.meta.env.VITE_APP_URL : import.meta.env.VITE_APP_URL_PROD,
+    //   baseURL: `http://stories-v2.test/`,
     //   withCredentials: false, // This is the default
     headers: {
         Accept: 'application/json',
