@@ -42,5 +42,8 @@ export default () => {
                 },
             },
         },
+        build: {
+            outDir: '../for-production/dist/storiesai-master/'
+        },
     })
 }

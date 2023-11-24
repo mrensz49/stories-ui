@@ -28,7 +28,7 @@
                       :to="'/category/'+category.slug"
                     >
                       <v-img
-                        :src="'/images/bg/' + category.image"
+                        :src="getImageUrl(category.image)"
                         :aspect-ratio="16 / 9"
                         gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
                         height="200px"

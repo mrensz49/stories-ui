@@ -7,7 +7,7 @@
             dark
             gradient="to top, rgba(25,32,72,.7), rgba(25,32,72,.0)"
             height="500px"
-            src="./images/banner.jpg"
+            :src="require('/images/banner.jpg')"
         >
           <v-card-text class="fill-height d-flex align-end">
             <v-row class="flex-column">
@@ -56,7 +56,7 @@
                       class="elevation-2 fill-height"
                       gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
                       height="600px"
-                      src="./images/moral_lesson.jpg"
+                      :src="require('/images/moral_lesson.jpg')"
                       >
                     <div
                         class="d-flex flex-column justify-space-between fill-height"
@@ -93,7 +93,7 @@
                     <v-img
                         :aspect-ratio="16 / 9"
                         height="100%"
-                        :src="'/images/bg/' + latest5.category.image"
+                        :src="getImageUrl(latest5.category.image)"
                     ></v-img>
                   </v-card>
                 </v-col>

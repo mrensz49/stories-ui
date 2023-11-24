@@ -60,7 +60,7 @@
                 @click="$router.push('/').catch(()=>{})"
             >
               <v-icon color="warning" large>mdi-book</v-icon>
-              Stories<sup class="accent--text">4U</sup>
+              Stories<sup class="accent--text">AI</sup>
             </v-toolbar-title>
           </v-col>
 

@@ -19,7 +19,7 @@
                     class="elevation-2"
                     gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
                     height="200px"
-                    :src="'/images/bg/' + content.category.image"
+                    :src="getImageUrl(content.category.image)"
                     style="border-radius: 16px"
                 >
                 <v-card-text>
@@ -53,6 +53,7 @@
 
         name: "Card-recommended",
 
-        props: ['content']
+        props: ['content'],
+
     }
 </script>

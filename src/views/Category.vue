@@ -6,7 +6,7 @@
           <div v-if="!this.$route.query.q">
             <div>
                 <v-img
-                  :src="'/images/bg/' + categoryStore.category.category.image"
+                  :src="getImageUrl(categoryStore.category.category.image)"
                   :aspect-ratio="16 / 5"
                   gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
                   style="border-radius: 16px"
@@ -33,7 +33,7 @@
                     <v-card flat height="100%" :to="'/category/'+categoryStore.category.category.slug+'?q='+cat.title_slug">
                       <v-img
                           :aspect-ratio="16 / 9"
-                          :src="'/images/bg/' + categoryStore.category.category.image"
+                          :src="getImageUrl(categoryStore.category.category.image)"
                           height="100%"
                       ></v-img>
                     </v-card>

@@ -3,15 +3,24 @@ import { createPinia, PiniaVuePlugin } from 'pinia'
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import router from './router'
+
 import skeletonLoader from './components/loader/Skeleton'
 import skeletonLoaderCard from './components/loader/SkeletonCard'
 import skeletonArticle from './components/loader/SkeletonArticle'
 
 Vue.config.productionTip = false
+
 Vue.use(PiniaVuePlugin)
 Vue.component('skeletonLoader', skeletonLoader)
 Vue.component('skeletonLoaderCard', skeletonLoaderCard)
 Vue.component('skeletonArticle', skeletonArticle)
+Vue.mixin({
+  methods: {
+    getImageUrl(name) {
+      return new URL(`/images/bg/${name}`, import.meta.url).href
+    },
+  },
+});
 
 const pinia = createPinia()
 
