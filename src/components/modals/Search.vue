@@ -88,6 +88,7 @@ export default {
         items: [],
         model: null,
         search: null,
+        url: import.meta.env.VITE_NODE_ENV == 'development' ? import.meta.env.VITE_APP_URL : import.meta.env.VITE_APP_URL_PROD
     }
   },
 
@@ -97,7 +98,7 @@ export default {
         if (val != null) {
 
           this.isLoading = true
-          fetch(`http://stories-v2.test/search-url-slug?id=${val}`)
+          fetch(`${this.url}search-url-slug?id=${val}`)
             .then(res => res.clone().json())
             .then(res => {
               this.$router.push(`/category/${res.category.slug}?q=${res.title_slug}`).catch(err => {});
@@ -120,7 +121,7 @@ export default {
         if (val.length > 1) {
           this.isLoading = true
           // Lazily load input items
-          fetch(`http://stories-v2.test/search?q=${val}`)
+          fetch(`${this.url}search?q=${val}`)
             .then(res => res.clone().json())
             .then(res => {
               this.items = res.data

@@ -16,6 +16,7 @@
             :target="item.target"
             :to="item.to"
             link
+            @click="categoryStore.searchDialog = true"
         >
           <v-list-item-content>
             <v-list-item-title>{{ item.text }}</v-list-item-title>

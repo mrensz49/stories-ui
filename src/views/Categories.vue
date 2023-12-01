@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="12" lg="12" xl="8">
+      <v-col cols="12" lg="8" xl="8">
         <div>
           <div>
             <div>

@@ -30,7 +30,7 @@
     </div>
 
     <v-row>
-      <v-col cols="12" lg="12" xl="8">
+      <v-col cols="12" lg="8" xl="8">
         <div>
           <div class="pt-16">
             <h2 class="text-h4 font-weight-bold pb-4">Recommended For You</h2>
@@ -49,7 +49,7 @@
             <h2 class="text-h4 font-weight-bold pb-4">Featured Moral Lesson</h2>
 
             <v-row>
-              <v-col v-for="moral in categoryStore.moral_lesson3" :key="moral.id" cols="6" lg="4">
+              <v-col v-for="moral in categoryStore.moral_lesson3" :key="moral.id" cols="12" lg="6" md="6" xl="4">
                 <v-card dark flat :to="'/category/'+moral.category.slug+'?q='+moral.title_slug">
                   <v-img
                       :aspect-ratio="16 / 9"
@@ -62,16 +62,17 @@
                         class="d-flex flex-column justify-space-between fill-height"
                     >
                       <v-card-text>
-                        <v-btn color="accent">{{ moral.title }}</v-btn>
+                        <v-btn color="accent">
+                            <small>{{ moral.title.substring(0,41) }}</small>
+                          </v-btn>
                       </v-card-text>
 
                       <v-card-text>
                         <div
                             class="text-h5 py-3 font-weight-bold"
                             style="line-height: 1.2"
-                        >
-                          {{ moral.moral_lesson }}
-                        </div>
+                            v-html="moral.moral_lesson.substring(0,300)+'...'"
+                        ></div>
 
                       </v-card-text>
                     </div>
@@ -106,7 +107,7 @@
                       {{ latest5.title }}
                     </h3>
 
-                    <div class="text-h6 font-weight-regular pt-3 text--secondary" v-html="latest5.data.substring(0,200)+'...'"></div>
+                    <div class="text-h6 font-weight-regular pt-3 text--secondary" v-html="latest5.data.substring(0,250)+'...'"></div>
                     <!--
                     <div class="d-flex align-center">
                       <v-avatar color="accent" size="36">

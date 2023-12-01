@@ -2,7 +2,7 @@
     <div>
         <skeleton-article v-if="categoryStore.loading"/>
         <div v-if="typeof categoryStore.story.category !== 'undefined' && !categoryStore.loading">
-        <v-card flat color="transparent">
+        <v-card>
             <v-card-text>
             <div>
                 <v-btn color="accent" :to="'/category/'+categoryStore.category.category.slug">{{ categoryStore.story.category.category }}</v-btn>
@@ -14,16 +14,23 @@
 
             <v-divider class="my-4"></v-divider>
 
-            <div class="text-subtitle-1 primary--text font-weight-medium" v-html="categoryStore.story.story.data"></div>
+            <v-card flat color="transparent">
+                <v-card-text>
+                    <div class="text-subtitle-1 primary--text text-justify" v-html="categoryStore.story.story.data"></div>
+                </v-card-text>
+            </v-card>
 
+            <v-divider class="my-4 pb-2"></v-divider>
+
+            <h2>Moral Lesson</h2>
             <div class="py-7">
                 <v-alert
-                class="text-center"
-                border="left"
-                colored-border
-                color="accent"
+                    class="text-justify"
+                    border="left"
+                    colored-border
+                    color="orange"
                 >
-                <div v-html="categoryStore.story.story.moral_lesson"></div>
+                    <div v-html="categoryStore.story.story.moral_lesson"></div>
                 </v-alert>
             </div>
 
