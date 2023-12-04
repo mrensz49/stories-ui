@@ -103,8 +103,13 @@
                   <div>
                     <v-btn color="accent" depressed :to="'/category/'+latest5.category.slug">{{ latest5.category.category }}</v-btn>
 
-                    <h3 class="text-h4 font-weight-bold pt-3">
-                      {{ latest5.title }}
+                    <h3
+                      class="text-h4 font-weight-bold pt-3"
+                      :to="'/category/'+latest5.category.slug+'?q='+latest5.title_slug"
+                    >
+                      <router-link class="text-decoration-none" :to="'/category/'+latest5.category.slug+'?q='+latest5.title_slug">
+                        {{ latest5.title }}
+                      </router-link>
                     </h3>
 
                     <div class="text-h6 font-weight-regular pt-3 text--secondary" v-html="latest5.data.substring(0,250)+'...'"></div>

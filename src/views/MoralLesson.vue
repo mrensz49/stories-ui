@@ -7,7 +7,7 @@
               <h2 class="text-h4 font-weight-bold">Moral  Lesson</h2>
 
               <h4 class="text-h6">
-                Are the lessons that we learn from our experiences, from the stories that we are told, and from the people that we meet.
+                The lessons that we learn from our experiences, from the stories that we are told, and from the people that we meet.
                 They teach us about right and wrong, about good and evil, and about how to live a good and meaningful life.
             </h4>
             </div>
@@ -15,7 +15,7 @@
             <v-divider class="my-4"></v-divider>
             <div>
               <div>
-                <skeletonLoaderCard v-if="categoryStore.loading"/>
+                <progressCircular v-if="categoryStore.loading"/>
                 <v-row v-for="moral_lesson in categoryStore.moral_lessons.data" :key="moral_lesson.id">
                   <v-col cols="12" md="3">
                     <v-card flat height="100%"
@@ -39,14 +39,14 @@
                           </h3>
                         </router-link>
 
-                      <div class="text-h6 font-weight-regular pt-3 text--secondary" v-html="moral_lesson.data.substring(0,200)+'...'"></div>
+                      <div class="text-h6 font-weight-regular pt-3 text--secondary" v-html="moral_lesson.moral_lesson.substring(0,200)+'...'"></div>
 
                     </div>
                   </v-col>
                 </v-row>
 
                 <v-row justify="space-between" class="mb-2">
-                <v-col cols="12" md="6" lg="4">
+                <v-col cols="6" md="6" lg="6" sm="6">
                   <a class="align-center"
                     @click="categoryStore.getMoralLesson(parseInt(categoryStore.moral_lessons.current_page) - 1)"
                   >
@@ -57,12 +57,12 @@
                   </a>
                 </v-col>
 
-                <v-col cols="12" md="6" lg="4">
+                <v-col cols="6" md="6" lg="6" sm="6">
                   <div class="align-center text-right">
-                    <v-icon>mdi-arrow-right</v-icon>
                     <a class="text-h6 primary--text pr-2"
-                      @click="categoryStore.getMoralLesson(parseInt(categoryStore.moral_lessons.current_page) + 1)"
+                    @click="categoryStore.getMoralLesson(parseInt(categoryStore.moral_lessons.current_page) + 1)"
                     >
+                      <v-icon>mdi-arrow-right</v-icon>
                       <div class="text-subtitle-1">Next Page</div>
                     </a>
                   </div>

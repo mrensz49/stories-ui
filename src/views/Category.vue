@@ -3,6 +3,7 @@
 
       <v-row v-if="typeof categoryStore.category.category !== 'undefined'">
         <v-col cols="12" lg="8" xl="8">
+          <progressCircular v-if="categoryStore.loading_page"/>
           <div v-if="!this.$route.query.q">
             <div>
                 <v-img
@@ -41,7 +42,7 @@
 
                   <v-col>
                     <a @click="newPage(categoryStore.category.category.slug, cat.title_slug)">
-                      <h3 class="text-h5 text--secondary font-weight-bold pt-3">
+                      <h3 class="text-h5 text--secondary font-weight-bold"> <!-- pt-3 -->
                         {{ cat.title }}
                       </h3>
                     </a>
@@ -69,13 +70,13 @@
 
                 <v-col cols="6" md="6" lg="6" sm="6">
                   <div class="align-center text-right">
-                    <v-icon>mdi-arrow-right</v-icon>
                     <a class="text-h6 primary--text pr-2"
                       @click="categoryStore.getNewPage({
                         name: categoryStore.category.category.slug,
                         page: parseInt(categoryStore.category.contents.current_page) + 1
                       })"
                     >
+                      <v-icon>mdi-arrow-right</v-icon>
                       <div class="text-subtitle-1">Next Page</div>
                     </a>
                   </div>
@@ -95,9 +96,6 @@
           </div>
         </v-col>
       </v-row>
-      <v-col cols="8" lg="8" xl="8">
-        <skeletonLoaderCard v-if="categoryStore.loading"/>
-      </v-col>
     </div>
   </template>
 

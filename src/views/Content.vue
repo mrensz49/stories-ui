@@ -2,7 +2,7 @@
     <div>
         <skeleton-article v-if="categoryStore.loading"/>
         <div v-if="typeof categoryStore.story.category !== 'undefined' && !categoryStore.loading">
-        <v-card>
+        <v-card color="grey lighten-4">
             <v-card-text>
             <div>
                 <v-btn color="accent" :to="'/category/'+categoryStore.category.category.slug">{{ categoryStore.story.category.category }}</v-btn>

@@ -7,6 +7,7 @@ import router from './router'
 import skeletonLoader from './components/loader/Skeleton'
 import skeletonLoaderCard from './components/loader/SkeletonCard'
 import skeletonArticle from './components/loader/SkeletonArticle'
+import progressCircular from './components/loader/ProgressCircular'
 
 Vue.config.productionTip = false
 
@@ -14,6 +15,7 @@ Vue.use(PiniaVuePlugin)
 Vue.component('skeletonLoader', skeletonLoader)
 Vue.component('skeletonLoaderCard', skeletonLoaderCard)
 Vue.component('skeletonArticle', skeletonArticle)
+Vue.component('progressCircular', progressCircular)
 Vue.mixin({
   methods: {
     getImageUrl(name) {
