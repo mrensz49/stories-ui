@@ -14,7 +14,6 @@ export const useCategoryStore = defineStore({
         moral_lesson3: [],
         moral_lessons: [],
         popular5: [],
-        errors: [],
         loading_rec: false,
         loading_page: false,
         loading: false,
@@ -141,6 +140,7 @@ export const useCategoryStore = defineStore({
             this.loading = true
             EventService.getPopular5()
             .then(response => {
+                console.log('response - ', response.data)
                 this.popular5 = response.data;
                 this.loading = false
             })

@@ -30,15 +30,16 @@
                 </div>
 
                 <v-row v-for="cat in categoryStore.category.contents.data" :key="cat.id" class="py-2">
-                  <!-- <v-col cols="12" md="2">
+                  <v-col cols="12" md="2">
                     <v-card flat height="100%" :to="'/category/'+categoryStore.category.category.slug+'?q='+cat.title_slug">
                       <v-img
                           :aspect-ratio="16 / 9"
-                          height="100%"
-                          ></v-img>
-                          :src="getImageUrl(categoryStore.category.category.image)"
+                          :src="getPublicImage(cat.image)"
+                          alt="No Image"
+                      ></v-img>
+
                     </v-card>
-                  </v-col> -->
+                  </v-col>
 
                   <v-col>
                     <a @click="newPage(categoryStore.category.category.slug, cat.title_slug)">
@@ -46,7 +47,7 @@
                         {{ cat.title }}
                       </h3>
                     </a>
-                    <v-divider class="my-4"></v-divider>
+                    <!-- <v-divider class="my-4"></v-divider> -->
                   </v-col>
 
                 </v-row>
@@ -107,7 +108,7 @@
     name: "Category",
 
     mounted() {
-        this.categoryStore.getCategory(this.$route.params.name)
+        this.categoryStore.getCategory(this.$route.params?.name)
       },
 
       data() {

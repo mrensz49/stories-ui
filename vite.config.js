@@ -38,7 +38,7 @@ export default () => {
         css: {
             preprocessorOptions: {
                 sass: {
-                    additionalData: "\n@import '@/scss/variables.scss'\n",
+                    additionalData: "\n@import '@/scss/style.scss'\n",
                 },
             },
         },

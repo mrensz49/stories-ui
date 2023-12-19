@@ -94,7 +94,7 @@
                     <v-img
                         :aspect-ratio="16 / 9"
                         height="100%"
-                        :src="getImageUrl(latest5.category.image)"
+                        :src="getPublicImage(latest5.image)"
                     ></v-img>
                   </v-card>
                 </v-col>

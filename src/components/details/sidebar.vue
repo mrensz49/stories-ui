@@ -7,35 +7,38 @@
 
       <div>
         <v-row v-for="(category, index) in categoryStore.popular5" :key="'sb_'+index" class="py-2">
-          <v-col cols="12" md="6" lg="5">
-            <v-card height="100%" flat :to="'/category/'+category.slug+'?q='+category.title_slug">
-              <v-img
-                :src="getImageUrl(category.image)"
-                :aspect-ratio="16 / 9"
-                height="100%"
-              ></v-img>
-            </v-card>
-          </v-col>
+          <template v-if="category">
 
-          <v-col>
-            <div>
-              <v-btn depressed color="accent" small :to="'/category/'+category.slug">{{ category.category }}</v-btn>
+            <v-col cols="12" md="6" lg="5">
+              <v-card height="100%" flat :to="'/category/'+category.slug+'?q='+category.title_slug">
+                <v-img
+                  :src="getPublicImage(category.image)"
+                  :aspect-ratio="16 / 9"
+                  height="100%"
+                ></v-img>
+              </v-card>
+            </v-col>
 
-              <router-link :to="'/category/'+category.slug+'?q='+category.title_slug" class="text-decoration-none">
-                <h3 class="text-h6 font-weight-bold primary--text py-3">
-                  {{ category.title }}
-                </h3>
-              </router-link>
+            <v-col>
+              <div>
+                <v-btn depressed color="accent" small :to="'/category/'+category.slug">{{ category.category }}</v-btn>
 
-              <!-- <div class="d-flex align-center">
-                <v-avatar color="accent" size="24">
-                  <v-icon dark small>mdi-feather</v-icon>
-                </v-avatar>
+                <router-link :to="'/category/'+category.slug+'?q='+category.title_slug" class="text-decoration-none">
+                  <h3 class="text-h6 font-weight-bold primary--text py-3">
+                    {{ category.title }}
+                  </h3>
+                </router-link>
 
-                <div class="pl-2">Yan Lee · 03 Jan 2019</div>
-              </div> -->
-            </div>
-          </v-col>
+                <!-- <div class="d-flex align-center">
+                  <v-avatar color="accent" size="24">
+                    <v-icon dark small>mdi-feather</v-icon>
+                  </v-avatar>
+
+                  <div class="pl-2">Yan Lee · 03 Jan 2019</div>
+                </div> -->
+              </div>
+            </v-col>
+          </template>
         </v-row>
       </div>
     </div>
@@ -108,6 +111,7 @@
       ></v-text-field>
       <v-btn color="accent" block large>Subscrbe</v-btn>
     </div> -->
+    <top-scroll></top-scroll>
   </div>
 </template>
 

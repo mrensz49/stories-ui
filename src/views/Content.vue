@@ -3,6 +3,13 @@
         <skeleton-article v-if="categoryStore.loading"/>
         <div v-if="typeof categoryStore.story.category !== 'undefined' && !categoryStore.loading">
         <v-card color="grey lighten-4">
+
+            <v-img
+                v-if="categoryStore.story.story.image"
+                :src="getPublicImage(categoryStore.story.story.image)"
+                width="100%"
+            ></v-img>
+
             <v-card-text>
             <div>
                 <v-btn color="accent" :to="'/category/'+categoryStore.category.category.slug">{{ categoryStore.story.category.category }}</v-btn>

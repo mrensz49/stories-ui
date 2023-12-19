@@ -1,6 +1,6 @@
 {
-  "name": "storiesAI",
-  "version": "0.1.3",
+  "name": "stories",
+  "version": "0.1.4",
   "private": true,
   "scripts": {
     "dev": "vite",
