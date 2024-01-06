@@ -4,8 +4,7 @@ let time_out = 10000
 const apiClient = axios.create({
     baseURL: import.meta.env.VITE_NODE_ENV == 'development'
             ? import.meta.env.VITE_APP_URL : import.meta.env.VITE_APP_URL_PROD,
-    //   baseURL: `http://stories-v2.test/`,
-    //   withCredentials: false, // This is the default
+    withCredentials: false, // This is the default
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
@@ -14,6 +13,16 @@ const apiClient = axios.create({
     // signal: newAbortSignal(time_out),
 })
 auth(apiClient)
+
+const apiClientLogin = axios.create({
+    baseURL: 'http://localhost/stories-v2/public/',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+    },
+    timeout: time_out,
+})
+auth(apiClientLogin)
 
 function auth(apiC) {
 
@@ -27,6 +36,10 @@ function auth(apiC) {
 }
 
 export default {
+
+    getCSRFToken() {
+        return apiClient.get(`/csrf-token`)
+    },
 
     getRecommended() {
         return apiClient.get(`/recommended`)
@@ -64,4 +77,35 @@ export default {
         return apiClient.get(`/moral_lessons?page=${page}`)
     },
 
+    register(payloads) {
+        return apiClient.post(`/register`, payloads)
+    },
+
+    login(payloads) {
+        return apiClient.post(`/login`, payloads)
+    },
+
+    forgotPassword(payloads) {
+        return apiClient.post(`/forgot-password`, payloads)
+    },
+
+    resetPassword(payloads) {
+        return apiClient.post(`/reset-password`, payloads)
+    },
+
+    // social login
+    sociaLogin(payloads) {
+        if (import.meta.env.VITE_NODE_ENV == 'development')
+            return apiClientLogin.post(`social-login/`+payloads.provider, payloads.response)
+        else
+            return apiClient.post(`social-login/${payloads.provider}`, payloads.response)
+    },
+
+    isLoggedIn() {
+        if (import.meta.env.VITE_NODE_ENV == 'development')
+            return apiClientLogin.get(`/isloggedin`)
+        else
+            return apiClient.post(`/isloggedin`)
+
+    },
 }

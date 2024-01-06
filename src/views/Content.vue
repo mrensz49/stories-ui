@@ -41,6 +41,10 @@
                 </v-alert>
             </div>
 
+            <v-divider class="my-2 pb-2" v-if="categoryStore.story.story.image_source"></v-divider>
+            <small>
+                <div v-html="categoryStore.story.story.image_source"></div>
+            </small>
 
             <!-- <div class="d-flex align-center justify-space-between mt-8">
                 <div>

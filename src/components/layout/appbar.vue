@@ -86,7 +86,7 @@
                 :color="item.color"
                 :outlined="item.outlined"
                 class="ml-3 text-capitalize"
-                @click="categoryStore.searchDialog = true"
+                @click="btnProcess(item.path)"
             >
               <v-icon left>{{ item.icon }}</v-icon>
               {{ item.text }}
@@ -114,9 +114,20 @@ export default {
         text: "Search",
         color: "primary",
         icon: "mdi-eye",
+        path: 'search'
+      },
+      {
+        text: "Why Login?",
+        color: "warning",
+        icon: "mdi-account",
+        path: 'login'
       },
     ],
     barItems: [
+      {
+        title: "Dashboard",
+        to: "/dashboard",
+      },
       {
         title: "Home",
         to: "/",
@@ -135,5 +146,17 @@ export default {
   components: {
     searchModal: () => import("@/components/modals/Search"),
   },
+
+  methods: {
+    btnProcess(path) {
+      if (path == 'login') {
+        this.$router.push('/'+path).catch(err => {});
+      }
+      else {
+        this.categoryStore.searchDialog = true
+      }
+    }
+  },
+
 };
 </script>

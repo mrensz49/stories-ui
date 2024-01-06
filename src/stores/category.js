@@ -140,7 +140,6 @@ export const useCategoryStore = defineStore({
             this.loading = true
             EventService.getPopular5()
             .then(response => {
-                console.log('response - ', response.data)
                 this.popular5 = response.data;
                 this.loading = false
             })

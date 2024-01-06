@@ -6,6 +6,11 @@ Vue.use(VueRouter)
 
 const routes = [
     {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: () => import("@/views/Dashboard.vue"),
+    },
+    {
         path: '/',
         name: 'Home',
         component: Home
@@ -38,8 +43,18 @@ const routes = [
     {
         path: '/login',
         name: 'Login',
-        component: () => import("@/views/Login.vue"),
-    }
+        component: () => import("@/views/Auth/Login.vue"),
+    },
+    {
+        path: '/password-reset/:token/:email',
+        name: 'ForgotPassword',
+        component: () => import('@/views/Auth/ForgotPassword'),
+    },
+    {
+        path: '/auth/google/callback',
+        name: 'Callback',
+        component: () => import("@/views/Callback.vue"),
+    },
 ]
 
 const router = new VueRouter({

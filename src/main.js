@@ -4,6 +4,23 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import router from './router'
 
+import axios from 'axios';
+import VueAxios from 'vue-axios'
+import VueSocialauth from 'vue-social-auth'
+
+Vue.use(VueAxios, axios)
+Vue.use(VueSocialauth, {
+
+  providers: {
+    google: {
+      clientId: '142165108690-u3h2boviv0ai3bnihued399b9epid2pd.apps.googleusercontent.com',
+      redirectUri: 'http://localhost/stories-v2/public/auth/google/callback' // Your client app URL
+      // redirectUri: 'http://localhost/stories-v2/public/user/social-login/callback/google' // Your client app URL
+      // redirectUri: '/auth/google/callback' // Your client app URL
+    }
+  }
+})
+
 import skeletonLoader from './components/loader/Skeleton'
 import skeletonLoaderCard from './components/loader/SkeletonCard'
 import skeletonArticle from './components/loader/SkeletonArticle'
@@ -18,6 +35,7 @@ Vue.component('skeletonLoaderCard', skeletonLoaderCard)
 Vue.component('skeletonArticle', skeletonArticle)
 Vue.component('progressCircular', progressCircular)
 Vue.component('topScroll', topScroll)
+
 Vue.mixin({
   methods: {
     getImageUrl(name) {
@@ -34,6 +52,7 @@ Vue.mixin({
     },
   },
 });
+
 
 const pinia = createPinia()
 
