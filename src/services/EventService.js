@@ -93,6 +93,7 @@ export default {
         return apiClient.post(`/reset-password`, payloads)
     },
 
+    
     // social login
     sociaLogin(payloads) {
         if (import.meta.env.VITE_NODE_ENV == 'development')

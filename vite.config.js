@@ -43,7 +43,7 @@ export default () => {
             },
         },
         build: {
-            outDir: '../for-production/dist/storiesai-master/'
+            outDir: '../for_production/storiesai-master/'
         },
     })
 }

@@ -60,8 +60,14 @@
                 style="cursor: pointer"
                 @click="$router.push('/').catch(()=>{})"
             >
-              <v-icon color="warning" large>mdi-book</v-icon>
-              Stories
+            <v-img
+              width="175px"
+                :src="require('/images/logo/storiesforyou-logo.png')"
+
+                ></v-img>
+
+              <!-- <v-icon color="warning" large>mdi-book</v-icon>
+              Stories -->
             </v-toolbar-title>
           </v-col>
 
@@ -116,18 +122,18 @@ export default {
         icon: "mdi-eye",
         path: 'search'
       },
-      {
-        text: "Why Login?",
-        color: "warning",
-        icon: "mdi-account",
-        path: 'login'
-      },
+      // {
+      //   text: "Why Login?",
+      //   color: "warning",
+      //   icon: "mdi-account",
+      //   path: 'login'
+      // },
     ],
     barItems: [
-      {
-        title: "Dashboard",
-        to: "/dashboard",
-      },
+      // {
+      //   title: "Dashboard",
+      //   to: "/dashboard",
+      // },
       {
         title: "Home",
         to: "/",
