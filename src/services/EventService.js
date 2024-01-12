@@ -78,19 +78,19 @@ export default {
     },
 
     register(payloads) {
-        return apiClient.post(`/register`, payloads)
+        return apiClient.post(`/auth/register`, payloads)
     },
 
     login(payloads) {
-        return apiClient.post(`/login`, payloads)
+        return apiClient.post(`/auth/login`, payloads)
     },
 
     forgotPassword(payloads) {
-        return apiClient.post(`/forgot-password`, payloads)
+        return apiClient.post(`/auth/forgot-password`, payloads)
     },
 
     resetPassword(payloads) {
-        return apiClient.post(`/reset-password`, payloads)
+        return apiClient.post(`/auth/reset-password`, payloads)
     },
 
     

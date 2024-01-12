@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import EventService from "@/services/EventService.js";
+import router from '@/router'
 
 export const useAuthStore = defineStore({
 
@@ -35,11 +36,18 @@ export const useAuthStore = defineStore({
             .then(response => {
                 this.user = response.data.user
                 this.loading = false
+                router.push({name: 'Dashboard'})
             })
             .catch(error => {
-                this.errors_reg = error.response.data.errors
                 this.user_loading = false
                 this.loading = false
+
+                if (error.response.data?.errors == undefined) {
+                    this.errors_reg.push([error.response.data.message])
+                } else {
+                    this.errors_reg = error.response.data?.errors
+
+                }
             })
         },
 
@@ -52,8 +60,10 @@ export const useAuthStore = defineStore({
 
             EventService.login(payload)
             .then(response => {
-                this.user = response.data.user
+                console.log('duccess', response.data.user)
+                this.user = response.data
                 this.loading = false
+                router.push({name: 'Dashboard'})
             })
             .catch(error => {
                 this.errors_login = error.response.data.errors
@@ -65,6 +75,7 @@ export const useAuthStore = defineStore({
 
             this.loading = true
             this.errors_reset = []
+            this.reset_password_details = ''
             await this.getCSRFToken()
             payload['_token'] = this.csrf_token
 
@@ -83,6 +94,7 @@ export const useAuthStore = defineStore({
 
             this.loading = true
             this.errors_reset = []
+            this.reset_password_details = ''
             await this.getCSRFToken()
             payload['_token'] = this.csrf_token
 
