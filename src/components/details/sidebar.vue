@@ -12,7 +12,7 @@
             <v-col cols="12" md="6" lg="5">
               <v-card height="100%" flat :to="'/category/'+category.slug+'?q='+category.title_slug">
                 <v-img
-                  :src="getPublicImage(category.image)"
+                  :src="getPublicImageThumbnail(category.image)"
                   :aspect-ratio="16 / 9"
                   height="100%"
                 ></v-img>

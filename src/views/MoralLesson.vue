@@ -24,7 +24,7 @@
                       <v-img
                           :aspect-ratio="16 / 9"
                           height="100%"
-                          :src="getPublicImage(moral_lesson.image)"
+                          :src="getPublicImageThumbnail(moral_lesson.image)"
                         ></v-img>
                           <!-- :src="getImageUrl(moral_lesson.category.image)" -->
                     </v-card>

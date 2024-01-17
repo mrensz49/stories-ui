@@ -34,7 +34,7 @@
                     <v-card flat height="100%" :to="'/category/'+categoryStore.category.category.slug+'?q='+cat.title_slug">
                       <v-img
                           :aspect-ratio="16 / 9"
-                          :src="getPublicImage(cat.image)"
+                          :src="getPublicImageThumbnail(cat.image)"
                           alt="No Image"
                       ></v-img>
 

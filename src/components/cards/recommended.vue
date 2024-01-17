@@ -19,7 +19,7 @@
                     class="elevation-2"
                     gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
                     height="200px"
-                    :src="getPublicImage(content.image)"
+                    :src="getPublicImageThumbnail(content.image)"
                     style="border-radius: 16px"
                 >
                 <v-card-text>

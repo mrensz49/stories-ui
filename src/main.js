@@ -42,13 +42,18 @@ Vue.mixin({
       return new URL(`/images/bg/${name}`, import.meta.url).href
     },
     getPublicImage(name) {
-
       if (!name) {
         name = 'no-image.jpg';
       }
       var baseURL = import.meta.env.VITE_NODE_ENV == 'development' ? import.meta.env.VITE_APP_URL : import.meta.env.VITE_APP_URL_PROD;
-
       return `${baseURL}images/${name}`
+    },
+    getPublicImageThumbnail(name) {
+      if (!name) {
+        name = '../no-image.jpg';
+      }
+      var baseURL = import.meta.env.VITE_NODE_ENV == 'development' ? import.meta.env.VITE_APP_URL : import.meta.env.VITE_APP_URL_PROD;
+      return `${baseURL}images/thumbnails/${name}`
     },
   },
 });
