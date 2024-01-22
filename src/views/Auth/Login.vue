@@ -1,6 +1,6 @@
 <template>
   <v-row class="d-flex justify-center align-center fill-height" style="min-height: 100vh">
-          <v-col cols="12" sm="12">
+          <v-col cols="10" lg="8" md="10" sm="12">
             <v-card class="elevation-6 mt-10"  >
              <v-window v-model="step">
                 <v-window-item :value="1">
@@ -33,18 +33,24 @@
                               <span v-for="(error, index) in authStore.errors_login" :key="index"> {{ error[0] }}<br/></span>
                             </v-alert>
 
-                            <h5 class="text-center  grey--text mt-4 mb-3">Or</h5>
-
-                            <div class="d-flex  justify-space-between align-center mx-10 mb-16">
-                                <v-btn depressed outlined color="grey" @click="AuthProvider('google')">
+                            <v-row align="center" class="grey--text mt-4 mb-3">
+                              <v-divider></v-divider> or login as <v-divider></v-divider>
+                            </v-row>
+                            <!-- d-flex   -->
+                            <div class="justify-space-between align-center mb-16">
+                              <div class="mb-2">
+                                <v-btn depressed block outlined color="grey" @click="AuthProvider('google')" class="mr-1">
                                   <v-icon color="red">mdi-google</v-icon>
                                 </v-btn>
-                                <v-btn depressed outlined color="grey">
+                              </div>
+                              <div>
+                                <v-btn depressed block outlined color="grey" @click="AuthProvider('facebook')" class="mr-1">
                                   <v-icon color="blue">mdi-facebook</v-icon>
                                 </v-btn>
-                                <v-btn depressed outlined color="grey">
+                              </div>
+                                <!-- <v-btn depressed outlined color="grey">
                                   <v-icon color="light-blue lighten-3">mdi-twitter</v-icon>
-                                </v-btn>
+                                </v-btn> -->
                             </div>
                           </v-col>
                         </v-row>
@@ -189,8 +195,8 @@
 
 <script>
 
-  import EventService from "@/services/EventService.js"
   import { useAuthStore } from '@/stores/auth'
+  import router from '@/router'
 
   const authStore = useAuthStore()
 
@@ -220,27 +226,33 @@
     methods: {
 
       AuthProvider(provider) {
-
         var self = this
         this.$auth.authenticate(provider).then(response =>{
-
-          self.SocialLogin(provider,response)
+          this.socialLogin(provider,response)
 
         }).catch(err => {
-          console.log({err1:err})
+          console.log({err:err})
+        })
 
-          EventService.isLoggedIn()
-            .then(response => {
-              console.log('res - ', response.data)
-              if (response.data == 1) {
-                this.$router.push(`/dashboard`).catch(err => {});
-              }
-          })
+      },
+
+      socialLogin(provider,response){
+
+        var baseURL = import.meta.env.VITE_NODE_ENV == 'development' ? import.meta.env.VITE_APP_URL : import.meta.env.VITE_APP_URL_PROD
+        console.log('import.meta.env.VITE_NODE_ENV - ', import.meta.env.VITE_NODE_ENV)
+        console.log('baseURL - ', baseURL)
+        console.log('provider - ', provider)
+
+        this.$http.post(baseURL+'sociallogin/'+provider, response).then(response => {
+
+          router.push({name: 'Dashboard'})
+
+        }).catch(err => {
+            console.log({err:err})
         })
       },
 
-
-
+     
       handleRegister() {
         authStore.handleRegister(this.formData)
       },

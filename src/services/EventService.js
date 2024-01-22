@@ -95,12 +95,12 @@ export default {
 
     
     // social login
-    sociaLogin(payloads) {
-        if (import.meta.env.VITE_NODE_ENV == 'development')
-            return apiClientLogin.post(`social-login/`+payloads.provider, payloads.response)
-        else
-            return apiClient.post(`social-login/${payloads.provider}`, payloads.response)
-    },
+    // sociaLogin(payloads) {
+    //     if (import.meta.env.VITE_NODE_ENV == 'development')
+    //         return apiClientLogin.post(`social-login/`+payloads.provider, payloads.response)
+    //     else
+    //         return apiClient.post(`social-login/${payloads.provider}`, payloads.response)
+    // },
 
     isLoggedIn() {
         if (import.meta.env.VITE_NODE_ENV == 'development')

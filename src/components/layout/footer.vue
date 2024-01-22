@@ -95,7 +95,7 @@
               target="_blank"
           >RS</a
           >
-          {{ new Date().getFullYear() }}. All rights reserved. <small>v0.1.8</small>
+          {{ new Date().getFullYear() }}. All rights reserved. <small>v0.2.1</small>
         </div>
       </v-container>
     </v-card>
@@ -104,31 +104,6 @@
 
 <script>
 export default {
-  data: () => ({
-    heroui: [
-      {
-        text: "Github",
-        href: "https://github.com/AGDholo",
-      },
-      {
-        text: "Themes",
-        href: "https://heroui.net/",
-      },
-    ],
-    shock: [
-      {
-        text: "Download",
-        href: "https://github.com/AGDholo/giraffe",
-      },
-      {
-        text: "Issues",
-        href: "https://github.com/AGDholo/giraffe/issues",
-      },
-      {
-        text: "LICENSE",
-        href: "https://github.com/AGDholo/giraffe/blob/master/LICENSE",
-      },
-    ],
-  }),
+  data: () => ({ }),
 };
 </script>

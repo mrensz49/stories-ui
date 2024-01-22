@@ -14,10 +14,12 @@ Vue.use(VueSocialauth, {
   providers: {
     google: {
       clientId: '142165108690-u3h2boviv0ai3bnihued399b9epid2pd.apps.googleusercontent.com',
-      redirectUri: 'http://localhost/stories-v2/public/auth/google/callback' // Your client app URL
-      // redirectUri: 'http://localhost/stories-v2/public/user/social-login/callback/google' // Your client app URL
-      // redirectUri: '/auth/google/callback' // Your client app URL
-    }
+      redirectUri: 'http://localhost:3000/auth/google/callback' // Your client app URL
+    },
+    facebook: {
+      clientId: '763496285649763',
+      redirectUri: 'http://localhost:3000/auth/facebook/callback' // Your client app URL
+    },    
   }
 })
 
@@ -55,6 +57,7 @@ Vue.mixin({
       var baseURL = import.meta.env.VITE_NODE_ENV == 'development' ? import.meta.env.VITE_APP_URL : import.meta.env.VITE_APP_URL_PROD;
       return `${baseURL}images/thumbnails/${name}`
     },
+
   },
 });
 

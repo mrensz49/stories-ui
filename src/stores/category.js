@@ -1,11 +1,14 @@
 import { defineStore } from 'pinia'
 import EventService from "@/services/EventService.js"
+import { useScrollTopPagination } from '@/stores/scrolltoppagination.js'
 
 export const useCategoryStore = defineStore({
 
     id: 'category',
 
     state: () => ({
+        scrollTopPagination: useScrollTopPagination(),
+
         data: [],
         story: [],
         categories: [],
@@ -77,6 +80,7 @@ export const useCategoryStore = defineStore({
             .then(response => {
                 this.category = response.data;
                 this.loading_page = false
+                this.scrollTopPagination.scroll()
             })
             .catch(error => {
                 if (typeof error.response !== 'undefined') {
@@ -158,6 +162,7 @@ export const useCategoryStore = defineStore({
             .then(response => {
                 this.moral_lessons = response.data;
                 this.loading = false
+                this.scrollTopPagination.scroll()
             })
             .catch(error => {
                 if (typeof error.response !== 'undefined') {

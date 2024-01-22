@@ -51,13 +51,15 @@ const routes = [
         component: () => import('@/views/Auth/ForgotPassword'),
     },
     {
-        path: '/auth/google/callback',
-        name: 'Callback',
-        component: () => import("@/views/Callback.vue"),
+        path: '/auth/:provider/callback',
+        component: {
+          template: '<div class="auth-component"></div>'
+        }
     },
 ]
 
 const router = new VueRouter({
+    mode: 'history',
     routes,
     scrollBehavior() {
         document.getElementById('app').scrollIntoView();
