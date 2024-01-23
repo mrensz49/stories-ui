@@ -148,7 +148,7 @@ export default {
   mounted() {
     this.categoryStore.getRecommended()
     this.categoryStore.getLatest5()
-    this.categoryStore.moralLesson3()
+    this.categoryStore.moralLesson3()    
   },
 
   data() {
