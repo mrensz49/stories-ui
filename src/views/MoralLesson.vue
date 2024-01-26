@@ -1,7 +1,7 @@
 <template>
     <div>
       <v-row>
-        <v-col cols="12" lg="12" xl="8">
+        <v-col cols="12" lg="8" xl="8">
           <div>
             <div>
               <h2 class="text-h4 font-weight-bold">Moral  Lesson</h2>
@@ -26,7 +26,6 @@
                           height="100%"
                           :src="getPublicImageThumbnail(moral_lesson.image)"
                         ></v-img>
-                          <!-- :src="getImageUrl(moral_lesson.category.image)" -->
                     </v-card>
                   </v-col>
 
@@ -40,7 +39,7 @@
                           </h3>
                         </router-link>
 
-                      <div class="text-h6 font-weight-regular pt-3 text--secondary" v-html="moral_lesson.moral_lesson.substring(0,200)+'...'"></div>
+                      <div class="text-body-1 font-weight-regular pt-3 text--secondary" v-html="moral_lesson.moral_lesson.substring(0,200)+'...'"></div>
 
                     </div>
                   </v-col>
@@ -50,6 +49,7 @@
                 <v-col cols="6" md="6" lg="6" sm="6">
                   <a class="align-center"
                     @click="categoryStore.getMoralLesson(parseInt(categoryStore.moral_lessons.current_page) - 1)"
+                    v-if="categoryStore.moral_lessons.current_page != 1"
                   >
                     <v-icon>mdi-arrow-left</v-icon>
                     <div class="text-h6 primary--text pl-2">
@@ -59,7 +59,9 @@
                 </v-col>
 
                 <v-col cols="6" md="6" lg="6" sm="6">
-                  <div class="align-center text-right">
+                  <div class="align-center text-right"
+                    v-if="categoryStore.moral_lessons.current_page != categoryStore.moral_lessons.last_page"
+                  >
                     <a class="text-h6 primary--text pr-2"
                     @click="categoryStore.getMoralLesson(parseInt(categoryStore.moral_lessons.current_page) + 1)"
                     >
@@ -77,7 +79,7 @@
         </v-col>
 
         <v-col>
-          <div class="pt-16">
+          <div class="pt-3">
             <siderbar/>
           </div>
         </v-col>

@@ -1,14 +1,19 @@
+import { useAuthStore } from '@/stores/auth'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
-
+// meta: {
+//     can: 'is-auth',
+//     onDeniedRoute: '/login' // value of onDeniedRoute option will be used if not set
+// }   
 const routes = [
     {
         path: '/dashboard',
         name: 'Dashboard',
         component: () => import("@/views/Dashboard.vue"),
+     
     },
     {
         path: '/',
@@ -41,6 +46,11 @@ const routes = [
         component: () => import("@/views/Authors.vue"),
     },
     {
+        path: '/list/:type',
+        name: 'List',
+        component: () => import('@/views/List.vue'),
+    },    
+    {
         path: '/login',
         name: 'Login',
         component: () => import("@/views/Auth/Login.vue"),
@@ -63,7 +73,18 @@ const router = new VueRouter({
     routes,
     scrollBehavior() {
         document.getElementById('app').scrollIntoView();
+    },
+})
+
+router.beforeEach((to, from, next) => {
+    const authStore = useAuthStore()
+    authStore.isLoggedIn()
+    if (to.name == 'Dashboard' && localStorage.getItem("storiesforyou_token")) {
+        next();
     }
+    if (to.name != 'Dashboard') {
+        next();
+    }    
 })
 
 export default router

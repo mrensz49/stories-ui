@@ -57,10 +57,11 @@
               <v-row justify="space-between">
                 <v-col cols="6" md="6" lg="6" sm="6">
                   <a class="align-center"
-                    @click="categoryStore.getNewPage({
+                      @click="categoryStore.getNewPage({
                         name: categoryStore.category.category.slug,
                         page: parseInt(categoryStore.category.contents.current_page) - 1
                       })"
+                      v-if="categoryStore.category.contents.current_page != 1"
                   >
                     <v-icon>mdi-arrow-left</v-icon>
                     <div class="text-h6 primary--text pl-2">
@@ -70,7 +71,9 @@
                 </v-col>
 
                 <v-col cols="6" md="6" lg="6" sm="6">
-                  <div class="align-center text-right">
+                  <div class="align-center text-right" 
+                    v-if="categoryStore.category.contents.current_page != categoryStore.category.contents.last_page"
+                  >
                     <a class="text-h6 primary--text pr-2"
                       @click="categoryStore.getNewPage({
                         name: categoryStore.category.category.slug,

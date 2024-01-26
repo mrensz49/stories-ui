@@ -22,18 +22,34 @@
             <v-list-item-title>{{ item.text }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item
-            v-for="(item, i) in barItems"
-            :key="'bar_'+i"
-            :href="item.href"
-            :target="item.target"
-            :to="item.to"
-            link
-        >
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+
+        <span v-for="(item, i) in barItems" :key="'bar_'+i">
+          <template v-if="item.title == 'Dashboard'&& authStore.is_logged_in">
+            <v-list-item
+                :href="item.href"
+                :target="item.target"
+                :to="item.to"
+                link
+            >
+              <v-list-item-content>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>         
+          </template>
+          
+          <template  v-if="item.title != 'Dashboard'">
+            <v-list-item
+                :href="item.href"
+                :target="item.target"
+                :to="item.to"
+                link
+            >
+              <v-list-item-content>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+        </span>
       </v-list>
     </v-navigation-drawer>
 
@@ -65,24 +81,37 @@
                 :src="require('/images/logo/storiesforyou-logo.png')"
 
                 ></v-img>
-
-              <!-- <v-icon color="warning" large>mdi-book</v-icon>
-              Stories -->
+     
             </v-toolbar-title>
           </v-col>
 
           <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="6">
-            <v-btn
-                v-for="(item, i) in barItems"
-                :key="'bi_'+i"
-                :to="item.to"
-                class="text-capitalize"
-                exact
-                exact-active-class="accent--text"
-                text
-            >{{ item.title }}
-            </v-btn
-            >
+            <span v-for="(item, i) in barItems" :key="'bi_'+i">
+              <template v-if="item.title == 'Dashboard'&& authStore.is_logged_in">
+                <v-btn
+                  :to="item.to"
+                  class="text-capitalize"
+                  exact
+                  exact-active-class="accent--text"
+                  text
+                >
+                  {{ item.title }}
+                </v-btn>
+              </template>
+
+              <template v-if="item.title != 'Dashboard'">
+                <v-btn
+                  :to="item.to"
+                  class="text-capitalize"
+                  exact
+                  exact-active-class="accent--text"
+                  text
+                >
+                  {{ item.title }}
+                </v-btn>
+              </template>
+
+          </span>
           </v-col>
 
           <v-col v-if="$vuetify.breakpoint.mdAndUp" class="text-right">
@@ -109,10 +138,12 @@
 <script>
 
 import { useCategoryStore } from '@/stores/category'
+import { useAuthStore } from '@/stores/auth'
 
 export default {
   data: () => ({
     categoryStore: useCategoryStore(),
+    authStore: useAuthStore(),
 
     drawer: null,
     btnItems: [
@@ -130,10 +161,10 @@ export default {
       // },
     ],
     barItems: [
-      // {
-      //   title: "Dashboard",
-      //   to: "/dashboard",
-      // },
+      {
+        title: "Dashboard",
+        to: "/dashboard",
+      },
       {
         title: "Home",
         to: "/",

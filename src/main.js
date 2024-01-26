@@ -8,6 +8,8 @@ import axios from 'axios';
 import VueAxios from 'vue-axios'
 import VueSocialauth from 'vue-social-auth'
 
+import moment from 'moment'
+
 Vue.use(VueAxios, axios)
 Vue.use(VueSocialauth, {
 
@@ -57,12 +59,17 @@ Vue.mixin({
       var baseURL = import.meta.env.VITE_NODE_ENV == 'development' ? import.meta.env.VITE_APP_URL : import.meta.env.VITE_APP_URL_PROD;
       return `${baseURL}images/thumbnails/${name}`
     },
+    getHumanDateDay(date) {
+      if (date) {
+          return moment(date, 'YYYY-MM-DD H:m').format('MMM. DD, YYYY - h:mma');
+      }
+    },    
 
   },
 });
 
-
 const pinia = createPinia()
+Vue.use(pinia)
 
 new Vue({
   pinia,

@@ -35,23 +35,53 @@ export default () => {
         plugins: [
             VitePWA({ 
                 registerType: 'autoUpdate',
+                background_color: '#2178FF',
                 manifest: {
                     name: 'storiesforyou',
                     short_name: 'storiesforyou',
                     description: "When you read an online story, you're not just reading it on your own. You're joining a community of readers and authors who are passionate about stories. You can share your thoughts on the story with other readers, and you can even leave comments for the story.",
-                    theme_color: '#f5ecbc',
+                    theme_color: '#2178FF',
                     icons: [
-                      {
-                        src: '/public/img/icons/android-chrome-192x192.png',
+                    {
+                        src: '/img/icons/screen-shot-320x320.png',
+                        sizes: '320x320',
+                        type: 'image/png',
+                        purpose: 'any'
+                        },
+                    {
+                        src: '/img/icons/android-chrome-192x192.png',
                         sizes: '192x192',
-                        type: 'image/png'
+                        type: 'image/png',
+                        purpose: 'any'
                       },
                       {
-                        src: '/public/img/icons/android-chrome-512x512.png',
+                        src: '/img/icons/screen-shot-512x512.png',
                         sizes: '512x512',
-                        type: 'image/png'
+                        type: 'image/png',
+                        purpose: 'any',
                       }
-                    ]
+                    ],
+                    "screenshots": [
+                        {
+                            "src": "/img/icons/android-chrome-1000x750.png",
+                            "sizes": "1000x750",
+                            "type": "image/png",
+                            "form_factor": "wide",
+                            "label": "Reading is life, too."
+                        },   
+                        {
+                            "src": "/img/icons/screen-shot-512x512.png",
+                            "sizes": "512x512",
+                            "type": "image/png",
+                            "label": "Reading is life, too."
+                        },                        
+                        {
+                            "src": "/img/icons/screen-shot-320x320.png",
+                            "sizes": "320x320",
+                            "type": "image/png",
+                            "label": "Reading is life, too."
+                        }
+                    ]                    
                   }                 
             }),
             createVuePlugin(),

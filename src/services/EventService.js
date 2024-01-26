@@ -27,7 +27,7 @@ auth(apiClientLogin)
 function auth(apiC) {
 
     apiC.interceptors.request.use(function (config) {
-        const token = localStorage.getItem('stories_token');
+        const token = localStorage.getItem('storiesforyou_token');
         if(token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -36,6 +36,14 @@ function auth(apiC) {
 }
 
 export default {
+
+    fetchUserAccess() {
+        return apiClient.get(`/user-access`)
+    },
+
+    isLoggedIn() {
+        return apiClient.get(`/is-logged-in`)
+    },
 
     getCSRFToken() {
         return apiClient.get(`/csrf-token`)
@@ -77,6 +85,30 @@ export default {
         return apiClient.get(`/moral_lessons?page=${page}`)
     },
 
+    getCountReadStories() {
+        return apiClient.get(`/count-read-stories`)
+    },    
+
+    getReadStories(page) {
+        return apiClient.get(`/read-stories?page=${page}`)
+    }, 
+
+    getUnReadStories(page) {
+        return apiClient.get(`/unread-stories?page=${page}`)
+    }, 
+
+    getCountUnReadStories() {
+        return apiClient.get(`/count-unread-stories`)
+    },
+
+    getCountLatestStories() {
+        return apiClient.get(`/count-latest-stories`)
+    },    
+
+    getLatestStories(page) {
+        return apiClient.get(`/latest-stories?page=${page}`)
+    }, 
+
     register(payloads) {
         return apiClient.post(`/auth/register`, payloads)
     },
@@ -91,22 +123,5 @@ export default {
 
     resetPassword(payloads) {
         return apiClient.post(`/auth/reset-password`, payloads)
-    },
-
-    
-    // social login
-    // sociaLogin(payloads) {
-    //     if (import.meta.env.VITE_NODE_ENV == 'development')
-    //         return apiClientLogin.post(`social-login/`+payloads.provider, payloads.response)
-    //     else
-    //         return apiClient.post(`social-login/${payloads.provider}`, payloads.response)
-    // },
-
-    isLoggedIn() {
-        if (import.meta.env.VITE_NODE_ENV == 'development')
-            return apiClientLogin.get(`/isloggedin`)
-        else
-            return apiClient.post(`/isloggedin`)
-
     },
 }

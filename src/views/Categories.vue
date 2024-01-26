@@ -57,7 +57,7 @@
       </v-col>
 
       <v-col>
-        <div>
+        <div class="pt-10">
           <siderbar />
         </div>
       </v-col>
