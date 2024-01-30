@@ -113,8 +113,20 @@ export default {
         return apiClient.post(`/auth/register`, payloads)
     },
 
+    verifyEmail(payloads) {
+        return apiClient.post(`/auth/verify-email`, payloads)
+    },
+
+    resendVerification(payloads) {
+        return apiClient.post(`/auth/resend-verification`, payloads)
+    },
+
     login(payloads) {
         return apiClient.post(`/auth/login`, payloads)
+    },
+
+    logout() {
+        return apiClient.post(`/auth/logout`)
     },
 
     forgotPassword(payloads) {

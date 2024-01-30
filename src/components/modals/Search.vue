@@ -7,7 +7,8 @@
         >
 
           <v-card theme="dark" class="pa-8 d-flex justify-center flex-wrap">
-            <v-responsive max-width="550">
+            <v-col col="12" lg="10" md="10">
+            <v-responsive>
             <v-img
                 class="mx-auto mt-10 mb-14"
                 max-width="50"
@@ -67,7 +68,7 @@
             </v-row>
 
             </v-responsive>
-
+          </v-col>
         </v-card>
 
         </v-dialog>

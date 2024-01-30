@@ -61,6 +61,11 @@ const routes = [
         component: () => import('@/views/Auth/ForgotPassword'),
     },
     {
+        path: '/verify-email/:id/:hash',
+        name: 'VerifyEmail',
+        component: () => import('@/views/Auth/VerifyEmail'),
+    },    
+    {
         path: '/auth/:provider/callback',
         component: {
           template: '<div class="auth-component"></div>'

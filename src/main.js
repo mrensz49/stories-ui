@@ -15,12 +15,14 @@ Vue.use(VueSocialauth, {
 
   providers: {
     google: {
-      clientId: '142165108690-u3h2boviv0ai3bnihued399b9epid2pd.apps.googleusercontent.com',
-      redirectUri: 'http://localhost:3000/auth/google/callback' // Your client app URL
+      clientId: import.meta.env.VITE_NODE_ENV == 'development' 
+      ? '142165108690-u3h2boviv0ai3bnihued399b9epid2pd.apps.googleusercontent.com' : '1066231581334-afe1q2sq5834jbf8ddj2h42ksggke8ad.apps.googleusercontent.com',
+      redirectUri: import.meta.env.VITE_NODE_ENV == 'development'
+      ? 'http://localhost:5173/auth/google/callback' : import.meta.env.VITE_CALLBACK_GOOGLE_PROD // Your client app URL
     },
     facebook: {
       clientId: '763496285649763',
-      redirectUri: 'http://localhost:3000/auth/facebook/callback' // Your client app URL
+      redirectUri: 'https://storiesforyou.net/auth/facebook/callback' // Your client app URL
     },    
   }
 })

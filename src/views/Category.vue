@@ -30,7 +30,7 @@
                 </div>
 
                 <v-row v-for="cat in categoryStore.category.contents.data" :key="cat.id" class="py-2">
-                  <v-col cols="12" md="2">
+                  <v-col cols="12" md="3">
                     <v-card flat height="100%" :to="'/category/'+categoryStore.category.category.slug+'?q='+cat.title_slug">
                       <v-img
                           :aspect-ratio="16 / 9"
@@ -43,7 +43,7 @@
 
                   <v-col>
                     <a @click="newPage(categoryStore.category.category.slug, cat.title_slug)">
-                      <h3 class="text-h5 text--secondary font-weight-bold"> <!-- pt-3 -->
+                      <h3 class="text-h6 text--secondary font-weight-bold"> <!-- pt-3 -->
                         {{ cat.title }}
                       </h3>
                     </a>

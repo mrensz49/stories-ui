@@ -63,6 +63,7 @@ export const useCategoryStore = defineStore({
             .then(response => {
                 this.category = response.data;
                 this.loading = false
+                
             })
             .catch(error => {
                 if (typeof error.response !== 'undefined') {
@@ -98,6 +99,7 @@ export const useCategoryStore = defineStore({
             .then(response => {
                 this.story = response.data;
                 this.loading = false
+                this.scrollTopPagination.scrollTop()
             })
             .catch(error => {
                 if (typeof error.response !== 'undefined') {

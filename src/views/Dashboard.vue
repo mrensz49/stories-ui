@@ -11,6 +11,7 @@
               </div>
 
               <v-divider class="my-4"></v-divider>
+              <ResendVerificationEmail/>
               <progressCircular v-if="authStore.loading"/>
               <v-row>
                 <v-col cols="12" md="6" lg="4">
@@ -26,6 +27,7 @@
                         :elevation="hover ? 12 : 0"
                         hover
                         :to="'/list/visited'"
+                        :disabled="authStore.user?.email_verified_at ? false : true"
                       >
                       <v-img
                           :src="require('/images/viewed-story.jpg')"
@@ -63,6 +65,7 @@
                         :elevation="hover ? 12 : 0"
                         hover
                         :to="'/list/unvisited'"
+                        :disabled="authStore.user?.email_verified_at ? false : true"
                       >
                       <v-img
                           :src="require('/images/viewed-story.jpg')"
@@ -100,6 +103,7 @@
                         :elevation="hover ? 12 : 0"
                         hover
                         :to="'/list/latest'"
+                        :disabled="authStore.user?.email_verified_at ? false : true"
                       >
                       <v-img
                           :src="require('/images/viewed-story.jpg')"
@@ -149,16 +153,17 @@
         this.authStore.getCountReadStories()
         this.authStore.getCountUnReadStories()
         this.authStore.getCountLatestStories()
-      },
+    },
 
       data() {
         return {
-          authStore: useAuthStore()
+          authStore: useAuthStore(),
         }
       },
 
       components: {
         siderbar: () => import("@/components/details/sidebar"),
+        ResendVerificationEmail: () => import("@/components/cards/ResendVerificationEmail"),
       },
   };
   </script>

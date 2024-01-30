@@ -36,7 +36,9 @@
                         style="border-radius: 16px"
                       >
                         <v-card-text>
-                          <v-btn color="accent">{{ category.category }}</v-btn>
+                          <v-btn color="accent" small>
+                            <small>{{ category.category }}</small>
+                          </v-btn>
                         </v-card-text>
                       </v-img>
 

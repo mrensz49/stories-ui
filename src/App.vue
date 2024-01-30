@@ -3,7 +3,11 @@
     <AppBar></AppBar>
 
     <v-container class="mt-16">
-      <router-view></router-view>
+      <v-row justify="center" align="center">
+        <v-col lg="10" md="10" sm="12">
+          <router-view></router-view>
+        </v-col>
+      </v-row>
     </v-container>
    
     <AddToHomeBtn></AddToHomeBtn>

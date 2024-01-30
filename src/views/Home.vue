@@ -33,7 +33,7 @@
       <v-col cols="12" lg="8" xl="8">
         <div>
           <div class="pt-16">
-            <h2 class="text-h4 font-weight-bold pb-4">Recommended For You</h2>
+            <h2 class="text-h5 font-weight-bold pb-4">Recommended For You</h2>
 
             <v-row>
               <template v-for="recommended in categoryStore.data">
@@ -46,10 +46,10 @@
           </div>
 
           <div class="pt-16">
-            <h2 class="text-h4 font-weight-bold pb-4">Featured Moral Lesson</h2>
+            <h2 class="text-h5 font-weight-bold pb-4">Featured Moral Lesson</h2>
 
             <v-row>
-              <v-col v-for="moral in categoryStore.moral_lesson3" :key="moral.id" cols="12" lg="6" md="6" xl="4">
+              <v-col v-for="moral in categoryStore.moral_lesson3" :key="moral.id" cols="12" lg="4" md="4" xl="4">
                 <v-card dark flat :to="'/category/'+moral.category.slug+'?q='+moral.title_slug">
                   <v-img
                       :aspect-ratio="16 / 9"
@@ -62,14 +62,14 @@
                         class="d-flex flex-column justify-space-between fill-height"
                     >
                       <v-card-text>
-                        <v-btn color="accent">
+                        <v-btn color="accent" small>
                             <small>{{ moral.title.substring(0,41) }}</small>
                           </v-btn>
                       </v-card-text>
 
                       <v-card-text>
                         <div
-                            class="text-h5 py-3 font-weight-bold"
+                            class="text-h6 py-3 font-weight-bold"
                             style="line-height: 1.2"
                             v-html="moral.moral_lesson.substring(0,300)+'...'"
                         ></div>
@@ -83,7 +83,7 @@
           </div>
 
           <div class="pt-16">
-            <h2 class="text-h4 font-weight-bold">Latest Posts</h2>
+            <h2 class="text-h5 font-weight-bold">Latest Posts</h2>
 
             <div>
               <v-row v-for="latest5 in categoryStore.latest5" :key="latest5.id" class="py-4">
@@ -101,18 +101,17 @@
 
                 <v-col>
                   <div>
-                    <v-btn color="accent" depressed :to="'/category/'+latest5.category.slug">{{ latest5.category.category }}</v-btn>
-
+                    <v-btn color="accent" small depressed :to="'/category/'+latest5.category.slug">{{ latest5.category.category }}</v-btn>
                     <h3
-                      class="text-h4 font-weight-bold pt-3"
+                      class="text-h5 font-weight-bold pt-3"
                       :to="'/category/'+latest5.category.slug+'?q='+latest5.title_slug"
                     >
-                      <router-link class="text-decoration-none" :to="'/category/'+latest5.category.slug+'?q='+latest5.title_slug">
+                      <router-link class="text-decoration-none text-h6" :to="'/category/'+latest5.category.slug+'?q='+latest5.title_slug">
                         {{ latest5.title }}
                       </router-link>
                     </h3>
 
-                    <div class="text-h6 font-weight-regular pt-3 text--secondary" v-html="latest5.data.substring(0,250)+'...'"></div>
+                    <div class="text-h7 font-weight-regular pt-3 text--secondary" v-html="latest5.data.substring(0,250)+'...'"></div>
                     <!--
                     <div class="d-flex align-center">
                       <v-avatar color="accent" size="36">

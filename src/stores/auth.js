@@ -10,10 +10,12 @@ export const useAuthStore = defineStore({
     state: () => ({
         scrollTopPagination: useScrollTopPagination(),
         is_logged_in: 0,
+        verified: 0,
         user: [],
         reset_password_details: '',
         csrf_token: '',
         loading: false,
+        verification_loading: false,
         count_read_stories: 0,
         count_unread_stories: 0,
         count_latest_stories: 0,
@@ -22,6 +24,8 @@ export const useAuthStore = defineStore({
         errors_login: [],
         errors_reg: [],
         errors_reset: [],
+        errors_verify: '',
+        errors_verification: []
     }),
 
     actions: {
@@ -29,9 +33,13 @@ export const useAuthStore = defineStore({
         async isLoggedIn() {
             await EventService.isLoggedIn()
             .then(response => {
-                this.is_logged_in = response.data;
+                this.is_logged_in = response.data.isLoggedIn;
+                this.user = response.data.user;
             })
             .catch(error => {
+                if (error.response.data.message == 'Unauthenticated.') {
+                    this.is_logged_in = 0
+                }
                 if (typeof error.response !== 'undefined') {
                     this.errors = error.response.data.errors
                 }
@@ -56,6 +64,7 @@ export const useAuthStore = defineStore({
             .then(response => {
                 this.user = response.data.user
                 this.loading = false
+                localStorage.setItem('storiesforyou_token', response.data.token)
                 router.push({name: 'Dashboard'})
             })
             .catch(error => {
@@ -83,6 +92,37 @@ export const useAuthStore = defineStore({
                 this.loading = false
                 localStorage.setItem('storiesforyou_token', response.data.token)
                 router.push({name: 'Dashboard'})
+            })
+            .catch(error => {
+                this.errors_login = error.response.data.errors
+                this.loading = false
+            })
+        },
+
+        handleResendVerification() {
+            this.verification_loading = true
+            this.errors_verification = ''
+            EventService.resendVerification()
+            .then(response => {
+                this.verification_loading = false
+                this.verified = 1
+            })
+            .catch(error => {
+                this.errors_verification = error.response.data.message
+                this.verification_loading = false
+            })
+        },
+                
+        handleLogout() {
+
+            this.loading = true
+
+            EventService.logout()
+            .then(response => {
+                this.user = response.data.user
+                this.loading = false
+                localStorage.removeItem('storiesforyou_token')
+                router.push({name: 'Home'})
             })
             .catch(error => {
                 this.errors_login = error.response.data.errors
@@ -124,6 +164,26 @@ export const useAuthStore = defineStore({
             })
             .catch(error => {
                 this.errors_reset = error.response.data.errors
+                this.loading = false
+            })
+        },
+
+
+        handleVerifyEmail(payload) {
+
+            this.loading = true
+            EventService.verifyEmail(payload)
+            .then(response => {
+                this.verified = response.data.verified
+                localStorage.setItem('storiesforyou_token', response.data.token)
+                this.loading = false
+                
+                setTimeout(()=>{
+                    router.push({name: 'Dashboard'})
+                },1500)                
+            })
+            .catch(error => {
+                this.errors_verify = error.response.data.message
                 this.loading = false
             })
         },

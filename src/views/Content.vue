@@ -15,7 +15,7 @@
                 <v-btn color="accent" :to="'/category/'+categoryStore.category.category.slug">{{ categoryStore.story.category.category }}</v-btn>
             </div>
 
-            <div class="text-h4 font-weight-bold primary--text pt-4">
+            <div class="text-h5 font-weight-bold primary--text pt-4">
                 <h4>{{ categoryStore.story.story.title }}</h4>
             </div>
 

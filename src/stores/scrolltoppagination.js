@@ -12,5 +12,12 @@ export const useScrollTopPagination = defineStore({
                 behavior: "smooth"
             });         
         },
+
+        scrollTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });         
+        },        
     }
 })

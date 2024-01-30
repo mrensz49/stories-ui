@@ -21,12 +21,14 @@
 
             <v-col>
               <div>
-                <v-btn depressed color="accent" small :to="'/category/'+category.slug">{{ category.category }}</v-btn>
+                <v-btn depressed color="accent" small :to="'/category/'+category.slug">
+                  <small>{{ category.category }}</small>
+                </v-btn>
 
                 <router-link :to="'/category/'+category.slug+'?q='+category.title_slug" class="text-decoration-none">
-                  <h3 class="text-h6 font-weight-bold primary--text py-3">
+                  <h5 class="text-h7 font-weight-bold primary--text py-3">
                     {{ category.title }}
-                  </h3>
+                  </h5>
                 </router-link>
 
                 <!-- <div class="d-flex align-center">
@@ -44,7 +46,7 @@
     </div>
 
     <div class="pt-4">
-      <h3 class="text-h5 font-weight-medium pb-4">Category</h3>
+      <h3 class="text-h6 font-weight-medium pb-4">Category</h3>
 
       <v-divider></v-divider>
       <v-card
@@ -52,7 +54,6 @@
         color="accent" dark flat
         :key="category.id" class="my-4"
         :to="'/category/'+category.slug"
-
       >
         <v-card-text
           class="d-flex justify-space-between align-center white--text"

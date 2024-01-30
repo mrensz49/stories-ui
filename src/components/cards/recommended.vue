@@ -23,12 +23,14 @@
                     style="border-radius: 16px"
                 >
                 <v-card-text>
-                    <v-btn color="accent" :to="'/category/'+content.category.slug">{{ content.category.category }}</v-btn>
+                    <v-btn small color="accent" :to="'/category/'+content.category.slug">
+                        <small>{{ content.category.category }}</small>
+                    </v-btn>
                 </v-card-text>
                 </v-img>
 
                 <v-card-text>
-                <div class="text-h5 font-weight-bold primary--text" v-html="content.title"></div>
+                <div class="text-h7 font-weight-bold primary--text" v-html="content.title"></div>
                 <!-- <div class="text-h6 font-weight-regular pt-3 text--secondary"></div> -->
                 <!-- <div class="text-body-1 py-4"  v-html="content.data.substring(0,100)+'...'"></div> -->
 
