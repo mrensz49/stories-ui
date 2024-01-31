@@ -40,7 +40,36 @@
                     <div v-html="categoryStore.story.story.moral_lesson"></div>
                 </v-alert>
             </div>
-
+            <v-row>
+                <v-col cols="12" class="text-right mt-n6 mb-1">
+                    <ShareNetwork
+                        network="facebook"
+                        :url="url_share"
+                        :title="categoryStore.story.story.title"
+                        :description="description"
+                        quote="You will learn most things by looking, but reading gives understanding. - Paul Rand"
+                        hashtags="storiesforyou"
+                    >
+                    <v-btn color="info" class="text-capitalize" small type="submit" outlined dark @open="open" @change="change" @close="close"  >
+                        Share <v-icon color="blue">mdi-facebook</v-icon>
+                    </v-btn>
+                    </ShareNetwork>        
+                    
+                    <ShareNetwork
+                        network="twitter"
+                        :url="url_share"
+                        :title="categoryStore.story.story.title"
+                        :description="description"
+                        quote="You will learn most things by looking, but reading gives understanding. - Paul Rand"
+                        hashtags="storiesforyou"
+                    >
+                    <v-btn color="info" class="text-capitalize ml-1" small type="submit" outlined dark @open="open" @change="change" @close="close"  >
+                        Share <v-icon color="blue">mdi-twitter</v-icon>
+                    </v-btn>
+                    </ShareNetwork>                        
+                </v-col>
+            </v-row>
+            
             <v-divider class="my-2 pb-2" v-if="categoryStore.story.story.image_source"></v-divider>
             <small>
                 <div v-html="categoryStore.story.story.image_source"></div>
@@ -127,6 +156,37 @@ import { useCategoryStore } from '@/stores/category'
 export default {
   name: "Home",
 
+  metaInfo() {
+
+    const title = this.$route.query.q.split("-").join(" ").replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()});
+
+    return {
+            title: title,
+            titleTemplate: '%s - storiesforyou!',
+            htmlAttrs: {
+                lang: 'en',
+                amp: true
+            },
+            meta: [
+                { vmid: "description", name: "description", content: this.description },
+                {
+                vmid: "og:title",
+                property: "og:title",
+                content:
+                    title &&
+                    title.charAt(0).toUpperCase() +
+                    title.slice(1).toLowerCase(),
+                    template: chunk => `${chunk} | storiesforyou`
+                },
+                {
+                    vmid: "og:image",
+                    property: "og:image",
+                    content: `https://www.admin.storiesforyou.net/images/icon/icon.png`
+                }                
+            ]            
+        }
+    },
+
   mounted() {
     this.categoryStore.getStory({
         name: this.$route.params.name,
@@ -136,7 +196,21 @@ export default {
 
   data() {
     return {
-      categoryStore: useCategoryStore()
+      categoryStore: useCategoryStore(),
+      url_share: window.location.href,
+      description: "When you read an online story, you're not just reading it on your own. You're joining a community of readers and authors who are passionate about stories. You can share your thoughts on the story with other readers, and you can even leave comments for the story."
+    }
+  },
+
+  methods: {
+    open() {
+        console.log('open')
+    },
+    change() {
+        console.log('change')
+    },
+    close() {
+        console.log('close')
     }
   },
 

@@ -9,6 +9,11 @@ import VueAxios from 'vue-axios'
 import VueSocialauth from 'vue-social-auth'
 
 import moment from 'moment'
+import VueSocialSharing from 'vue-social-sharing'
+import VueMeta from 'vue-meta'
+
+import { registerSW } from 'virtual:pwa-register'
+registerSW({ immediate: true })
 
 Vue.use(VueAxios, axios)
 Vue.use(VueSocialauth, {
@@ -41,6 +46,8 @@ Vue.component('skeletonLoaderCard', skeletonLoaderCard)
 Vue.component('skeletonArticle', skeletonArticle)
 Vue.component('progressCircular', progressCircular)
 Vue.component('topScroll', topScroll)
+Vue.use(VueSocialSharing);
+Vue.use(VueMeta)
 
 Vue.mixin({
   methods: {
