@@ -69,7 +69,7 @@
 
                       <v-card-text>
                         <div
-                            class="text-h6 py-3 font-weight-bold"
+                            class="text-h7 py-3"
                             style="line-height: 1.2"
                             v-html="moral.moral_lesson.substring(0,300)+'...'"
                         ></div>
