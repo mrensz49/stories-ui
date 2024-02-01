@@ -3,7 +3,7 @@
     <v-card absolute app color="primary" dark flat>
       <v-container>
         <v-row align="start">
-          <v-col cols="12" md="12">
+          <v-col cols="12" md="9">
             <h4 class="text-h5 font-weight-bold">
               Stories
             </h4>
@@ -12,6 +12,12 @@
               You're joining a community of readers and authors who are passionate about stories.
               You can share your thoughts on the story with other readers, and you can even leave comments for the story.
             </p>
+          </v-col>
+          <v-col cols="12" md="3">
+            <h4 class="text-h5 font-weight-bold">
+              Contact
+            </h4>
+            <v-subheader class="text-h7">mrensz49@storiesforyou.net / mrensz49@gmail.com</v-subheader>
           </v-col>
 
           <!-- <v-col cols="12" md="3">
