@@ -4,10 +4,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
-// meta: {
-//     can: 'is-auth',
-//     onDeniedRoute: '/login' // value of onDeniedRoute option will be used if not set
-// }   
+  
 const routes = [
     {
         path: '/dashboard',

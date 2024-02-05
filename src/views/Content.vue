@@ -42,6 +42,7 @@
             </div>
             <v-row>
                 <v-col cols="12" class="text-right mt-n6 mb-1">
+                    <v-icon color="blue">mdi-share-variant-outline</v-icon>
                     <ShareNetwork
                         network="facebook"
                         :url="url_share"
@@ -50,8 +51,8 @@
                         quote="You will learn most things by looking, but reading gives understanding. - Paul Rand"
                         hashtags="storiesforyou"
                     >
-                    <v-btn color="info" class="text-capitalize" small type="submit" outlined dark @open="open" @change="change" @close="close"  >
-                        Share <v-icon color="blue">mdi-facebook</v-icon>
+                    <v-btn color="info" class="text-capitalize ml-1" small type="submit" outlined dark @open="open" @change="change" @close="close"  >
+                        <v-icon color="blue">mdi-facebook</v-icon>
                     </v-btn>
                     </ShareNetwork>        
                     
@@ -62,11 +63,12 @@
                         :description="description"
                         quote="You will learn most things by looking, but reading gives understanding. - Paul Rand"
                         hashtags="storiesforyou"
+                        class="text-decoration-none"
                     >
-                    <v-btn color="info" class="text-capitalize ml-1" small type="submit" outlined dark @open="open" @change="change" @close="close"  >
-                        Share <v-icon color="blue">mdi-twitter</v-icon>
+                    <v-btn color="info" class="text-capitalize ml-1 text-decoration-none" small type="submit" outlined dark @open="open" @change="change" @close="close"  >
+                        <v-icon color="blue">mdi-twitter</v-icon>
                     </v-btn>
-                    </ShareNetwork>                        
+                    </ShareNetwork>       
                 </v-col>
             </v-row>
             

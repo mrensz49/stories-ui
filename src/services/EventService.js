@@ -1,38 +1,101 @@
 import axios from 'axios'
 
-let time_out = 10000
+import { createToastInterface } from "vue-toastification";
+const pluginOptions = {
+  timeout: 4000
+};
+const toast = createToastInterface();
+
+const API_TIMEOUT = 10000; // Define timeout as a constant
+let lastError = null; // Track the last displayed error and its timestamp
+
+// Configuration for environment-specific base URLs
+const baseURLs = {
+  development: import.meta.env.VITE_APP_URL,
+  production: import.meta.env.VITE_APP_URL_PROD,
+};
+
 const apiClient = axios.create({
-    baseURL: import.meta.env.VITE_NODE_ENV == 'development'
-            ? import.meta.env.VITE_APP_URL : import.meta.env.VITE_APP_URL_PROD,
-    withCredentials: false, // This is the default
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-    },
-    timeout: time_out,
-    // signal: newAbortSignal(time_out),
-})
-auth(apiClient)
+  baseURL: baseURLs[import.meta.env.VITE_NODE_ENV],
+  withCredentials: false,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  timeout: API_TIMEOUT,
+  // signal: new AbortController().signal, // Uncomment if using AbortController
+});
 
-const apiClientLogin = axios.create({
-    baseURL: 'http://localhost/stories-v2/public/',
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-    },
-    timeout: time_out,
-})
-auth(apiClientLogin)
+// Authentication interceptor (refactored)
+apiClient.interceptors.request.use(
+  async (config) => {
+    const token = await localStorage.getItem('storiesforyou_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
-function auth(apiC) {
+// Response interceptor (refactored)
+apiClient.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
+      // Handle timeout error
+      await handleTimeoutError(error);
+    }
+    return Promise.reject(error);
+  }
+);
 
-    apiC.interceptors.request.use(function (config) {
-        const token = localStorage.getItem('storiesforyou_token');
-        if(token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-    }, null, { synchronous: true });
+async function handleTimeoutError(error) {
+  // Determine best error message based on network information
+  const errorText = determineErrorMessage(error);
+
+  // Display the alert in a user-friendly manner
+  if (!lastError || (Date.now() - lastError.timestamp) > API_TIMEOUT || lastError.message !== errorText) {
+    displayAlert(errorText);
+    lastError = {
+      message: errorText,
+      timestamp: Date.now()
+    };
+  }
+}
+
+function determineErrorMessage(error) {
+  // Analyze network information available in `error.response`
+  // (if network response is available) to provide more specific info
+  // If unavailable, default to a general message:
+  if (!error.response) {
+    return 'Hmm, it seems something went wrong.';
+  }
+
+  // Example logic for determining more specific messages:
+  if (error.response.status === 500) {
+    return 'The server might be experiencing issues.';
+  } else if (error.response.status === 408) {
+    return 'The request took too long to complete.';
+  } else if (error.request) {
+    // Check network state or connection quality and tailor message accordingly
+    if (navigator.onLine) {
+      return 'It looks like your internet connection might be slow.';
+    } else {
+      return 'You seem to be offline. Please check your internet connection.';
+    }
+  } else {
+    // Fallback message
+    return 'Hmm, it seems something went wrong.';
+  }
+}
+
+function displayAlert(message) {
+  // Use a framework-specific or generic alert mechanism
+  // Replace this with your preferred alert implementation
+  // (e.g., `alert`, `toastr`, custom components)
+  // alert(message);
+  toast.error(message);
 }
 
 export default {

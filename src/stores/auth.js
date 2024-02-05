@@ -37,7 +37,7 @@ export const useAuthStore = defineStore({
                 this.user = response.data.user;
             })
             .catch(error => {
-                if (error.response.data.message == 'Unauthenticated.') {
+                if (error.response?.data.message == 'Unauthenticated.') {
                     this.is_logged_in = 0
                 }
                 if (typeof error.response !== 'undefined') {
