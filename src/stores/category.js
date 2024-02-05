@@ -17,10 +17,12 @@ export const useCategoryStore = defineStore({
         moral_lesson3: [],
         moral_lessons: [],
         popular5: [],
+        credits: [],
         loading_rec: false,
         loading_page: false,
         loading: false,
-        searchDialog:false,
+        searchDialog: false,
+        current_page: 1,
     }),
 
     actions: {
@@ -175,6 +177,21 @@ export const useCategoryStore = defineStore({
             })
         },
 
+        getCredits(pages) {
+            this.loading = true
+            EventService.getCredits(pages)
+            .then(response => {
+                this.credits.push(response.data.data)
+                this.current_page = parseInt(response.data.current_page) + 1
+                this.loading = false
+            })
+            .catch(error => {
+                if (typeof error.response !== 'undefined') {
+                    this.errors = error.response.data.errors
+                }
+                this.loading = false
+            })
+        },        
     }
 
 })

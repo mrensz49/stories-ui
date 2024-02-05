@@ -40,8 +40,11 @@
                     <div v-html="categoryStore.story.story.moral_lesson"></div>
                 </v-alert>
             </div>
+
+            <!-- <v-divider class="my-2 pb-2" v-if="categoryStore.story.story.image_source"></v-divider> -->
+
             <v-row>
-                <v-col cols="12" class="text-right mt-n6 mb-1">
+                <v-col cols="12" class="text-right mb-1">
                     <v-icon color="blue">mdi-share-variant-outline</v-icon>
                     <ShareNetwork
                         network="facebook"
@@ -72,10 +75,6 @@
                 </v-col>
             </v-row>
             
-            <v-divider class="my-2 pb-2" v-if="categoryStore.story.story.image_source"></v-divider>
-            <small>
-                <div v-html="categoryStore.story.story.image_source"></div>
-            </small>
 
             <!-- <div class="d-flex align-center justify-space-between mt-8">
                 <div>

@@ -172,6 +172,10 @@ export default {
         return apiClient.get(`/latest-stories?page=${page}`)
     }, 
 
+    getCredits(page) {
+      return apiClient.get(`/credits/images?page=${page}`)
+    },
+
     register(payloads) {
         return apiClient.post(`/auth/register`, payloads)
     },
