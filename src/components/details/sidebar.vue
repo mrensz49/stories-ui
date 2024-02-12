@@ -65,7 +65,10 @@
       </v-card>
 
     </div>
-
+    <v-divider></v-divider>
+    <div class="pt-4">
+      <AddToHomeBtn></AddToHomeBtn>
+    </div>
     <!-- <div class="pt-4">
       <h3 class="text-h5 font-weight-medium pb-4">Top Authors</h3>
 
@@ -134,6 +137,9 @@
       }
     },
 
+    components: {
+      AddToHomeBtn: () => import("@/components/helpers/AddToHomeBtn.vue"),
+    },    
   };
 
 </script>

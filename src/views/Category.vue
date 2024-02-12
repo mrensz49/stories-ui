@@ -110,7 +110,7 @@
   export default {
     name: "Category",
 
-    mounted() {
+      mounted() {
         this.categoryStore.getCategory(this.$route.params?.name)
       },
 

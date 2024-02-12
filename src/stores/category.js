@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import EventService from "@/services/EventService.js"
+import toast from "@/services/toast.js"
 import { useScrollTopPagination } from '@/stores/scrolltoppagination.js'
 
 export const useCategoryStore = defineStore({
@@ -18,10 +19,13 @@ export const useCategoryStore = defineStore({
         moral_lessons: [],
         popular5: [],
         credits: [],
+        reaction_summary: [],
+        users_reaction: [],
         loading_rec: false,
         loading_page: false,
         loading: false,
         searchDialog: false,
+        loading_reaction: [],
         current_page: 1,
     }),
 
@@ -95,13 +99,14 @@ export const useCategoryStore = defineStore({
         },
 
         getStory(payloads) {
-
             this.loading = true
             EventService.getStory(payloads)
             .then(response => {
                 this.story = response.data;
                 this.loading = false
                 this.scrollTopPagination.scrollTop()
+                this.getReactionSummary(response.data.story.id)
+                this.getUsersReaction(response.data.story.id)                
             })
             .catch(error => {
                 if (typeof error.response !== 'undefined') {
@@ -109,6 +114,30 @@ export const useCategoryStore = defineStore({
                 }
 
                 this.loading = false
+            })
+        },
+
+        getReactionSummary(payload) {
+            EventService.getReactionSummary(payload)
+            .then(response => {
+                this.reaction_summary = response.data;
+            })
+            .catch(error => {
+                if (typeof error.response !== 'undefined') {
+                    this.errors = error.response.data.errors
+                }
+            })
+        },
+
+        getUsersReaction(payload) {
+            EventService.getUsersReaction(payload)
+            .then(response => {
+                this.users_reaction = response.data;
+            })
+            .catch(error => {
+                if (typeof error.response !== 'undefined') {
+                    this.errors = error.response.data.errors
+                }
             })
         },
 
@@ -191,7 +220,26 @@ export const useCategoryStore = defineStore({
                 }
                 this.loading = false
             })
-        },        
+        },
+        
+        postReaction(payload) {
+            this.loading_reaction.push({'reaction':payload.type})
+            EventService.postReaction(payload)
+            .then(response => {
+                this.loading_reaction = []
+                this.getReactionSummary(payload.id)
+                this.getUsersReaction(payload.id)   
+            })
+            .catch(error => {
+                if (typeof error.response !== 'undefined') {
+                    this.errors = error.response.data.errors
+                    if (error.response.data.message == 'Unauthenticated.') {
+                        toast.error("Please log in to proceed.");
+                    }
+                }
+                this.loading_reaction = []
+            })
+        },
     }
 
 })

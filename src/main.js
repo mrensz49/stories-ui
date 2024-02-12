@@ -18,8 +18,6 @@ const options = {
   // You can set your default options here
 };
 
-
-
 import { registerSW } from 'virtual:pwa-register'
 registerSW({ immediate: true })
 
@@ -64,6 +62,22 @@ Vue.use(Toast, options);
 
 Vue.mixin({
   methods: {
+    showIcon(type) {
+      switch(type) {
+          case 'like':
+              return 'mdi-thumb-up';
+          case 'love':
+              return 'mdi-heart'
+          case 'happy':
+              return 'mdi-emoticon-happy-outline'
+          case 'sad':
+              return 'mdi-emoticon-sad-outline'
+          case 'angry':
+              return 'mdi-emoticon-angry-outline'
+          default:
+              return 'mdi-thumb-up';
+      }        
+    },    
     getImageUrl(name) {
       return new URL(`/images/bg/${name}`, import.meta.url).href;
     },

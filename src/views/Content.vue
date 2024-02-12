@@ -44,7 +44,15 @@
             <!-- <v-divider class="my-2 pb-2" v-if="categoryStore.story.story.image_source"></v-divider> -->
 
             <v-row>
-                <v-col cols="12" class="text-right mb-1">
+                <v-col cols="12" lg="8" md="8" sm="12">
+                    <div fluid class="pa-0">
+                        <div class="pl-2">
+                            <reacted-by/>
+                        </div>
+                        <button-reaction/>                                                                        
+                    </div>
+                </v-col>
+                <v-col cols="12" lg="4" md="4" sm="12" class="text-right">
                     <v-icon color="blue">mdi-share-variant-outline</v-icon>
                     <ShareNetwork
                         network="facebook"
@@ -54,9 +62,9 @@
                         quote="You will learn most things by looking, but reading gives understanding. - Paul Rand"
                         hashtags="storiesforyou"
                     >
-                    <v-btn color="info" class="text-capitalize ml-1" small type="submit" outlined dark @open="open" @change="change" @close="close"  >
-                        <v-icon color="blue">mdi-facebook</v-icon>
-                    </v-btn>
+                        <v-btn color="info" class="text-capitalize ml-1" small type="submit" outlined dark @open="open" @change="change" @close="close"  >
+                            <v-icon color="blue">mdi-facebook</v-icon>
+                        </v-btn>
                     </ShareNetwork>        
                     
                     <ShareNetwork
@@ -68,82 +76,12 @@
                         hashtags="storiesforyou"
                         class="text-decoration-none"
                     >
-                    <v-btn color="info" class="text-capitalize ml-1 text-decoration-none" small type="submit" outlined dark @open="open" @change="change" @close="close"  >
-                        <v-icon color="blue">mdi-twitter</v-icon>
-                    </v-btn>
+                        <v-btn color="info" class="text-capitalize ml-1 text-decoration-none" small type="submit" outlined dark @open="open" @change="change" @close="close"  >
+                            <v-icon color="blue">mdi-twitter</v-icon>
+                        </v-btn>
                     </ShareNetwork>       
                 </v-col>
             </v-row>
-            
-
-            <!-- <div class="d-flex align-center justify-space-between mt-8">
-                <div>
-                <v-row>
-                    <v-col class="flex-shrink-0" cols="auto">
-                    <v-chip color="accent">#Animalis</v-chip>
-                    </v-col>
-
-                    <v-col class="flex-shrink-0" cols="auto">
-                    <v-chip color="accent">#Travel</v-chip>
-                    </v-col>
-
-                    <v-col class="flex-shrink-0" cols="auto">
-                    <v-chip color="accent">#Birds</v-chip>
-                    </v-col>
-                </v-row>
-                </div>
-
-                <div class="text-h5">
-                Share >
-                <v-btn icon large>
-                    <v-icon large color="primary">mdi-facebook</v-icon>
-                </v-btn>
-
-                <v-btn icon large>
-                    <v-icon large color="primary">mdi-twitter</v-icon>
-                </v-btn>
-
-                <v-btn icon large>
-                    <v-icon large color="primary">mdi-linkedin</v-icon>
-                </v-btn>
-
-                <v-btn icon large>
-                    <v-icon large color="primary">mdi-instagram</v-icon>
-                </v-btn>
-                </div>
-            </div> -->
-
-            <!-- <v-divider class="my-8"></v-divider>
-
-            <div>
-                <v-row justify="space-between">
-                <v-col cols="12" md="6" lg="4">
-                    <div class="d-flex align-center">
-                    <div>
-                        <v-icon>mdi-arrow-left</v-icon>
-                    </div>
-
-                    <div class="text-h6 primary--text pl-2">
-                        <div class="text-subtitle-1">Previous Post</div>Photos of Jeep models that will change
-                        your mood
-                    </div>
-                    </div>
-                </v-col>
-
-                <v-col cols="12" md="6" lg="4">
-                    <div class="d-flex align-center text-right">
-                    <div class="text-h6 primary--text pr-2">
-                        <div class="text-subtitle-1">Next Post</div>What do I need to know to start learning
-                        JavaScript?
-                    </div>
-
-                    <div>
-                        <v-icon>mdi-arrow-right</v-icon>
-                    </div>
-                    </div>
-                </v-col>
-                </v-row>
-            </div> -->
             </v-card-text>
         </v-card>
         </div>
@@ -162,29 +100,29 @@ export default {
     const title = this.$route.query.q.split("-").join(" ").replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()});
 
     return {
-            title: title,
-            titleTemplate: '%s - storiesforyou!',
-            htmlAttrs: {
-                lang: 'en',
-                amp: true
+        title: title,
+        titleTemplate: '',
+        htmlAttrs: {
+            lang: 'en',
+            amp: true
+        },
+        meta: [
+            { vmid: "description", name: "description", content: this.description },
+            {
+            vmid: "og:title",
+            property: "og:title",
+            content:
+                title &&
+                title.charAt(0).toUpperCase() +
+                title.slice(1).toLowerCase(),
+                template: chunk => `${chunk} | storiesforyou`
             },
-            meta: [
-                { vmid: "description", name: "description", content: this.description },
-                {
-                vmid: "og:title",
-                property: "og:title",
-                content:
-                    title &&
-                    title.charAt(0).toUpperCase() +
-                    title.slice(1).toLowerCase(),
-                    template: chunk => `${chunk} | storiesforyou`
-                },
-                {
-                    vmid: "og:image",
-                    property: "og:image",
-                    content: `https://www.admin.storiesforyou.net/images/icon/icon.png`
-                }                
-            ]            
+            {
+                vmid: "og:image",
+                property: "og:image",
+                content: `https://www.admin.storiesforyou.net/images/icon/icon.png`
+            }                
+        ]            
         }
     },
 
@@ -222,6 +160,11 @@ export default {
             title: this.$route.query.q,
         })
     }
+  },
+
+  components: {
+    ReactedBy: () => import("@/components/post/ReactedBy"),
+    ButtonReaction: () => import("@/components/post/ButtonReaction"),
   },
 
 };

@@ -35,7 +35,7 @@ export default () => {
         plugins: [
             VitePWA({ 
                 registerType: 'autoUpdate',
-                background_color: '#2178FF',
+                background_color: '#FFFFFF',
                 workbox: {
                     globPatterns: ['**/*.{js,css,html,ico,png,svg}']
                 },                
@@ -43,8 +43,8 @@ export default () => {
                     name: 'storiesforyou',
                     short_name: 'storiesforyou',
                     description: "When you read an online story, you're not just reading it on your own. You're joining a community of readers and authors who are passionate about stories. You can share your thoughts on the story with other readers, and you can even leave comments for the story.",
-                    theme_color: '#2178FF',
-                    background_color: '#2178FF',
+                    theme_color: '#FFFFFF',
+                    background_color: '#FFFFFF',
                     icons: [
                     {
                         src: '/img/icons/screen-shot-320x320.png',

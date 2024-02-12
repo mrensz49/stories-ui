@@ -109,7 +109,7 @@
               target="_blank"
           >RS</a
           >
-          {{ new Date().getFullYear() }}. All rights reserved. <small>v0.3.0</small>
+          {{ new Date().getFullYear() }}. All rights reserved. <small>v0.3.3</small>
         </div>
       </v-container>
     </v-card>

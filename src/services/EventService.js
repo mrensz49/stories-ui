@@ -1,13 +1,9 @@
 import axios from 'axios'
-
-import { createToastInterface } from "vue-toastification";
-const pluginOptions = {
-  timeout: 4000
-};
-const toast = createToastInterface();
+import toast from "@/services/toast.js"
 
 const API_TIMEOUT = 10000; // Define timeout as a constant
 let lastError = null; // Track the last displayed error and its timestamp
+let errorSet = new Set(); // Set to store unique error messages
 
 // Configuration for environment-specific base URLs
 const baseURLs = {
@@ -23,10 +19,9 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
   timeout: API_TIMEOUT,
-  // signal: new AbortController().signal, // Uncomment if using AbortController
 });
 
-// Authentication interceptor (refactored)
+// Authentication interceptor
 apiClient.interceptors.request.use(
   async (config) => {
     const token = await localStorage.getItem('storiesforyou_token');
@@ -38,63 +33,55 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor (refactored)
+// Response interceptor
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
       // Handle timeout error
       await handleTimeoutError(error);
+    } else {
+      // Handle other errors
+      await handleOtherError(error);
     }
     return Promise.reject(error);
   }
 );
 
 async function handleTimeoutError(error) {
-  // Determine best error message based on network information
-  const errorText = determineErrorMessage(error);
+  const errorText = 'The request took too long to complete.';
+  displayUniqueError(errorText);
+}
 
-  // Display the alert in a user-friendly manner
-  if (!lastError || (Date.now() - lastError.timestamp) > API_TIMEOUT || lastError.message !== errorText) {
-    displayAlert(errorText);
-    lastError = {
-      message: errorText,
-      timestamp: Date.now()
-    };
-  }
+async function handleOtherError(error) {
+  const errorText = determineErrorMessage(error);
+  displayUniqueError(errorText);
 }
 
 function determineErrorMessage(error) {
-  // Analyze network information available in `error.response`
-  // (if network response is available) to provide more specific info
-  // If unavailable, default to a general message:
   if (!error.response) {
-    return 'Hmm, it seems something went wrong.';
-  }
-
-  // Example logic for determining more specific messages:
-  if (error.response.status === 500) {
-    return 'The server might be experiencing issues.';
-  } else if (error.response.status === 408) {
-    return 'The request took too long to complete.';
-  } else if (error.request) {
-    // Check network state or connection quality and tailor message accordingly
-    if (navigator.onLine) {
-      return 'It looks like your internet connection might be slow.';
-    } else {
-      return 'You seem to be offline. Please check your internet connection.';
-    }
+    // No response received
+    return navigator.onLine ? 'The server might be experiencing issues.' : 'You seem to be offline. Please check your internet connection.';
   } else {
-    // Fallback message
-    return 'Hmm, it seems something went wrong.';
+    // Server responded with an error
+    if (error.response.status === 500) {
+      return 'The server might be experiencing issues.';
+    } else if (error.response.status === 408) {
+      return 'The request took too long to complete.';
+    } else {
+      return 'Hmm, it seems something went wrong.';
+    }
+  }
+}
+
+function displayUniqueError(errorText) {
+  if (!errorSet.has(errorText)) {
+    displayAlert(errorText);
+    errorSet.add(errorText);
   }
 }
 
 function displayAlert(message) {
-  // Use a framework-specific or generic alert mechanism
-  // Replace this with your preferred alert implementation
-  // (e.g., `alert`, `toastr`, custom components)
-  // alert(message);
   toast.error(message);
 }
 
@@ -174,6 +161,18 @@ export default {
 
     getCredits(page) {
       return apiClient.get(`/credits/images?page=${page}`)
+    },
+    
+    postReaction(payloads) {
+      return apiClient.post(`/reaction`, payloads)
+    },
+
+    getReactionSummary(id) {
+      return apiClient.get(`/reaction-summary/${id}`)
+    },
+
+    getUsersReaction(id) {
+      return apiClient.get(`/users-reaction/${id}`)
     },
 
     register(payloads) {

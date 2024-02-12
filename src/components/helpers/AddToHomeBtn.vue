@@ -6,7 +6,6 @@
           :type=type
           prominent
           class="pl-7"
-          v-show="showBTN"
         >
             {{ message }}
           <v-btn
@@ -40,20 +39,22 @@
 </template>
 
 <script>
-
-import { isMobile, isTablet } from 'mobile-device-detect';
-
 export default {
   data: () => ({
     shown: false,
     type: 'info',
     message: 'Add storiesforyou to home screen?',
-    showBTN: (isMobile || isTablet) ? 1:0,
 
     snackbar: false,
     text: 'Thanks! Kindly see your app in a moment',
     timeout: 3000,    
   }),
+
+  computed: {
+    isMobileOrTablet() {
+      return window.innerWidth <= 768; // Adjust the breakpoint as needed
+    }
+  },
 
   beforeMount() {
     window.addEventListener('beforeinstallprompt', (e) => {

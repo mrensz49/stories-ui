@@ -9,8 +9,6 @@
         </v-col>
       </v-row>
     </v-container>
-   
-    <AddToHomeBtn></AddToHomeBtn>
     <Footer></Footer>
   </v-app>
 </template>
@@ -22,8 +20,6 @@ export default {
   components: {
     AppBar: () => import("@/components/layout/appbar.vue"),
     Footer: () => import("@/components/layout/footer.vue"),
-    AddToHomeBtn: () => import("@/components/helpers/AddToHomeBtn.vue"),
-
   },
   data: () => ({}),
 };
