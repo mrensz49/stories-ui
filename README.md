@@ -1,12 +1,8 @@
-# HeroUI - Giraffe
+# storiesforyou
 
-![images](images/preview.png)
+![images](images/preview-2.png)
 
-Giraffe is a complete application theme, Giraffe theme built with [Vuetify](https://vuetifyjs.com/) created
-by [HeroUI](https://heroui.net/). It is a solution that displays dense content, such as news, blogs or magazines,
-including news, authors, classified pages, and so on. Giraffe are characterized by a large number of components
-assembled together and look amazing. If you are a new company and want to create your online image, or if you just want
-people to know who you are and what you do, this may be your answer.
+When you read an online story, you're not just reading it on your own. You're joining a community of readers and authors who are passionate about stories. You can share your thoughts on the story with other readers, and you can even leave comments for the story.
 
 ## Preview
 
