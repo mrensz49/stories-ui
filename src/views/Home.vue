@@ -83,47 +83,7 @@
           </div>
 
           <div class="pt-16">
-            <h2 class="text-h5 font-weight-bold">Latest Posts</h2>
-
-            <div>
-              <v-row v-for="latest5 in categoryStore.latest5" :key="latest5.id" class="py-4">
-                <v-col cols="12" md="4">
-                  <v-card flat height="100%"
-                    :to="'/category/'+latest5.category.slug+'?q='+latest5.title_slug"
-                  >
-                    <v-img
-                        :aspect-ratio="16 / 9"
-                        height="100%"
-                        :src="getPublicImageThumbnail(latest5.image)"
-                    ></v-img>
-                  </v-card>
-                </v-col>
-
-                <v-col>
-                  <div>
-                    <v-btn color="accent" small depressed :to="'/category/'+latest5.category.slug">{{ latest5.category.category }}</v-btn>
-                    <h3
-                      class="text-h5 font-weight-bold pt-3"
-                      :to="'/category/'+latest5.category.slug+'?q='+latest5.title_slug"
-                    >
-                      <router-link class="text-decoration-none text-h6" :to="'/category/'+latest5.category.slug+'?q='+latest5.title_slug">
-                        {{ latest5.title }}
-                      </router-link>
-                    </h3>
-
-                    <div class="text-h7 font-weight-regular pt-3 text--secondary" v-html="latest5.data.substring(0,250)+'...'"></div>
-                    <!--
-                    <div class="d-flex align-center">
-                      <v-avatar color="accent" size="36">
-                        <v-icon dark>mdi-feather</v-icon>
-                      </v-avatar>
-
-                      <div class="pl-2">Yan Lee · 03 Jan 2019</div>
-                    </div> -->
-                  </div>
-                </v-col>
-              </v-row>
-            </div>
+            <latest-post/>
           </div>
         </div>
       </v-col>
@@ -159,6 +119,7 @@ export default {
   components: {
     siderbar: () => import("@/components/details/sidebar"),
     recommended: () => import("@/components/cards/recommended"),
+    LatestPost: () => import("@/components/cards/LatestPost"),
   },
 };
 </script>

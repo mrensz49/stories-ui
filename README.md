@@ -10,7 +10,7 @@ people to know who you are and what you do, this may be your answer.
 
 ## Preview
 
-**[View Live Preview](https://giraffe.heroui.net/)**
+**[View Live Preview](https://storiesforyou.net/)**
 
 ## Usage
 

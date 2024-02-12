@@ -55,6 +55,12 @@ async function handleTimeoutError(error) {
 
 async function handleOtherError(error) {
   const errorText = determineErrorMessage(error);
+
+  // Exclude 401 status code
+  if (error.response && error.response.status === 401) {
+    return; // Skip handling the error
+  }
+    
   displayUniqueError(errorText);
 }
 
@@ -68,7 +74,8 @@ function determineErrorMessage(error) {
       return 'The server might be experiencing issues.';
     } else if (error.response.status === 408) {
       return 'The request took too long to complete.';
-    } else {
+    }
+     else {
       return 'Hmm, it seems something went wrong.';
     }
   }
