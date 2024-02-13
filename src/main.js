@@ -62,22 +62,16 @@ Vue.use(Toast, options);
 
 Vue.mixin({
   methods: {
-    showIcon(type) {
-      switch(type) {
-          case 'like':
-              return 'mdi-thumb-up';
-          case 'love':
-              return 'mdi-heart'
-          case 'happy':
-              return 'mdi-emoticon-happy-outline'
-          case 'sad':
-              return 'mdi-emoticon-sad-outline'
-          case 'angry':
-              return 'mdi-emoticon-angry-outline'
-          default:
-              return 'mdi-thumb-up';
-      }        
-    },    
+      showIcon(type) {
+        const iconMap = {
+            'like': 'mdi-thumb-up',
+            'love': 'mdi-heart',
+            'happy': 'mdi-emoticon-happy-outline',
+            'sad': 'mdi-emoticon-sad-outline',
+            'angry': 'mdi-emoticon-angry-outline'
+        };
+        return iconMap[type] || 'mdi-thumb-up'; // Default to 'mdi-thumb-up' if type is not found
+    }, 
     getImageUrl(name) {
       return new URL(`/images/bg/${name}`, import.meta.url).href;
     },
@@ -92,15 +86,16 @@ Vue.mixin({
       return `${baseURL}storage/images/thumbnails/${name}`;
     },
 
-    getHumanDateDay(date) {
-      return moment(date, 'YYYY-MM-DD H:m').format('MMM. DD, YYYY - h:mma') || '';
-    },
-
     getBaseURL() {
       return import.meta.env.VITE_NODE_ENV === 'development'
         ? import.meta.env.VITE_APP_URL
         : import.meta.env.VITE_APP_URL_PROD + 'public/';
     },
+
+    getHumanDateDay(date) {
+      return moment(date, 'YYYY-MM-DD H:m').format('MMM. DD, YYYY - h:mma') || '';
+    },
+
   },
 });
 
