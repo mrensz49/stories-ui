@@ -60,8 +60,26 @@ async function handleOtherError(error) {
   if (error.response && error.response.status === 401) {
     return; // Skip handling the error
   }
-    
+
+  // If status code is 500, give a chance to retry the request
+  if (error.response && error.response.status === 500) {
+    await retryRequest(error);
+    return;
+  }
+
+  // For other errors, display the error message
   displayUniqueError(errorText);
+}
+
+async function retryRequest(error) {
+  try {
+    // Attempt to retry the request
+    await apiClient.request(error.config);
+  } catch (retryError) {
+    // Retry failed, display the error message
+    const errorText = determineErrorMessage(retryError);
+    displayUniqueError(errorText);
+  }
 }
 
 function determineErrorMessage(error) {
@@ -74,8 +92,7 @@ function determineErrorMessage(error) {
       return 'The server might be experiencing issues.';
     } else if (error.response.status === 408) {
       return 'The request took too long to complete.';
-    }
-     else {
+    } else {
       return 'Hmm, it seems something went wrong.';
     }
   }
@@ -91,6 +108,7 @@ function displayUniqueError(errorText) {
 function displayAlert(message) {
   toast.error(message);
 }
+
 
 export default {
 

@@ -30,14 +30,6 @@
                     {{ category.title }}
                   </h5>
                 </router-link>
-
-                <!-- <div class="d-flex align-center">
-                  <v-avatar color="accent" size="24">
-                    <v-icon dark small>mdi-feather</v-icon>
-                  </v-avatar>
-
-                  <div class="pl-2">Yan Lee · 03 Jan 2019</div>
-                </div> -->
               </div>
             </v-col>
           </template>
@@ -45,25 +37,22 @@
       </div>
     </div>
 
-    <div class="pt-4">
+    <div class="pt-4 pb-4">
       <h3 class="text-h6 font-weight-medium pb-4">Category</h3>
 
       <v-divider></v-divider>
       <v-card
         v-for="category in categoryStore.categories"
         color="accent" dark flat
-        :key="category.id" class="my-4"
+        :key="category.id" class="my-2"
         :to="'/category/'+category.slug"
       >
         <v-card-text
           class="d-flex justify-space-between align-center white--text"
         >
           <h6 class="text-h6">{{ category.category }}</h6>
-
-          <!-- <div class="text-h6">47</div> -->
         </v-card-text>
       </v-card>
-
     </div>
     <v-divider></v-divider>
     <div class="pt-4">

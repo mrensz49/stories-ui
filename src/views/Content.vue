@@ -27,9 +27,9 @@
                 </v-card-text>
             </v-card>
 
-            <v-divider class="my-4 pb-2"></v-divider>
 
-            <h2>Moral Lesson</h2>
+
+            <h2 class="mt-7">Moral Lesson</h2>
             <div class="py-7">
                 <v-alert
                     class="text-justify"
@@ -82,6 +82,9 @@
                     </ShareNetwork>       
                 </v-col>
             </v-row>
+
+            <suggested-story/>
+            
             </v-card-text>
         </v-card>
         </div>
@@ -165,6 +168,7 @@ export default {
   components: {
     ReactedBy: () => import("@/components/post/ReactedBy"),
     ButtonReaction: () => import("@/components/post/ButtonReaction"),
+    SuggestedStory: () => import("@/components/post/SuggestedStory"),
   },
 
 };
