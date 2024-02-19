@@ -19,6 +19,7 @@ export const useAuthStore = defineStore({
         count_read_stories: 0,
         count_unread_stories: 0,
         count_latest_stories: 0,
+        count_upcoming_stories: 0,
         list_stories: [],
         unread_stories: [],
         errors_login: [],
@@ -287,5 +288,39 @@ export const useAuthStore = defineStore({
             })
         },
 
+        getCountUpcomingStories() {
+            this.loading = true
+            EventService.getCountUpcomingStories()
+            .then(response => {
+                this.count_upcoming_stories = response.data;
+                this.loading = false
+            })
+            .catch(error => {
+                if (typeof error.response !== 'undefined') {
+                    this.errors = error.response.data.errors
+                }
+    
+                this.loading = false
+            })
+        },
+
+        getUpcomingStories(page) {
+            this.loading = true
+            EventService.getUpcomingStories(page)
+            .then(response => {
+                this.list_stories = response.data;
+                this.loading = false
+                this.scrollTopPagination.scroll()
+            })
+            .catch(error => {
+                if (typeof error.response !== 'undefined') {
+                    this.errors = error.response.data.errors
+                }
+    
+                this.loading = false
+            })
+        },
+
+        
     }, 
 })

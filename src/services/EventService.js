@@ -61,9 +61,9 @@ async function handleOtherError(error) {
     return; // Skip handling the error
   }
 
-  // If status code is 500, give a chance to retry the request
+
   if (error.response && error.response.status === 500) {
-    await retryRequest(error);
+    // await retryRequest(error);
     return;
   }
 
@@ -180,9 +180,17 @@ export default {
         return apiClient.get(`/count-latest-stories`)
     },    
 
+    getCountUpcomingStories() {
+        return apiClient.get(`/count-upcoming-stories`)
+    },    
+
     getLatestStories(page) {
         return apiClient.get(`/latest-stories?page=${page}`)
     }, 
+
+    getUpcomingStories(page) {
+      return apiClient.get(`/upcoming-stories?page=${page}`)
+    },
 
     getCredits(page) {
       return apiClient.get(`/credits/images?page=${page}`)

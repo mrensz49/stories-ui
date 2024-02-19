@@ -128,6 +128,44 @@
                   </v-hover>                  
                 </v-col>
 
+                <v-col cols="12" md="6" lg="4">
+                  <v-hover
+                    v-slot:default="{ hover }"
+                    open-delay="50"
+                    close-delay="50"
+                  >
+                  <div>
+                    <v-card
+                        flat
+                        :color="hover ? 'white' : 'transparent'"
+                        :elevation="hover ? 12 : 0"
+                        hover
+                        :to="'/list/upcoming'"
+                        :disabled="authStore.user?.email_verified_at ? false : true"
+                      >
+                      <v-img
+                          :src="require('/images/viewed-story.jpg')"
+                          :aspect-ratio="16 / 9"
+                          gradient="to top, rgba(25,32,72,.4), rgba(25,32,72,.0)"
+                          height="200px"
+                          class="elevation-2"
+                          style="border-radius: 16px"
+                        >
+                          <v-card-text>
+                            <v-btn color="accent">Upcoming Stories</v-btn>
+                          </v-card-text>                      
+                        </v-img>   
+                        
+                        <v-card-text>
+                          <div class="text-h5 font-weight-bold primary--text">
+                            {{ authStore.count_upcoming_stories }} upcoming stories
+                          </div>
+                        </v-card-text>                      
+                      </v-card>
+                  </div>
+                  </v-hover>                  
+                </v-col>
+
               </v-row>
             </div>
           </div>
@@ -153,6 +191,7 @@
         this.authStore.getCountReadStories()
         this.authStore.getCountUnReadStories()
         this.authStore.getCountLatestStories()
+        this.authStore.getCountUpcomingStories()
     },
 
       data() {

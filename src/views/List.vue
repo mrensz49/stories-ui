@@ -14,10 +14,21 @@
 
             <v-divider class="my-4"></v-divider>
             <div>
+
+              <v-alert
+                type="error"
+                color="#C51162"
+                dark
+                v-if="type == 'upcoming'"
+              >
+                It remains unread as its release date is still ahead.
+              </v-alert>  
+
                 <v-row v-for="list in authStore.list_stories.data" :key="list.id">
                   <v-col cols="12" md="3">
                     <v-card flat height="100%"
                       :to="'/category/'+list.slug+'?q='+list.title_slug"
+                      :disabled="type == 'upcoming'"
                     >
                       <v-img
                           :aspect-ratio="16 / 9"
@@ -31,11 +42,17 @@
                     <div>
                       <v-btn color="accent" depressed :to="'/category/'+list.slug">{{ list.slug }}</v-btn>
 
-                        <router-link  :to="'/category/'+list.slug +'?q='+list.title_slug" class="text-decoration-none">
+                        <router-link  :to="'/category/'+list.slug +'?q='+list.title_slug" class="text-decoration-none" 
+                          v-if="type != 'upcoming'">
                           <h3 class="text-h4 font-weight-bold pt-3">
                             {{ list.title }}
                           </h3>
                         </router-link>
+                        <span v-else>
+                          <h3 class="text-h4 font-weight-bold pt-3">
+                            {{ list.title }}
+                          </h3>                          
+                        </span>
 
                       <div class="text-body-2 font-weight-regular pt-3 text--secondary" v-html="list.moral_lesson.substring(0,200)+'...'"></div>
                       <div class="text-body-2 pt-2 text--secondary">
@@ -105,6 +122,10 @@
             this.activities = 'Your upcoming activities.'
             this.authStore.getUnReadStories(1)
         }
+        else if (this.type == 'upcoming') {
+            this.activities = 'Your upcoming activities.'
+            this.authStore.getUpcomingStories(1)
+        }        
         else {
           this.activities = 'Your upcoming activities.'
             this.authStore.getLatestStories(1)
