@@ -1,9 +1,9 @@
 <template>
-    <v-overlay>
-        <v-progress-circular
-            :size="80"
-            color="amber"
-            indeterminate
-        ></v-progress-circular>
-    </v-overlay>
+  <v-overlay>
+    <v-progress-circular
+      :size="80"
+      color="amber"
+      indeterminate
+    ></v-progress-circular>
+  </v-overlay>
 </template>

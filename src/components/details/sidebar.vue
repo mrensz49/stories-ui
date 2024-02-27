@@ -6,11 +6,18 @@
       <v-divider></v-divider>
 
       <div>
-        <v-row v-for="(category, index) in categoryStore.popular5" :key="'sb_'+index" class="py-2">
+        <v-row
+          v-for="(category, index) in categoryStore.popular5"
+          :key="'sb_' + index"
+          class="py-2"
+        >
           <template v-if="category">
-
             <v-col cols="12" md="6" lg="5">
-              <v-card height="100%" flat :to="'/category/'+category.slug+'?q='+category.title_slug">
+              <v-card
+                height="100%"
+                flat
+                :to="'/category/' + category.slug + '?q=' + category.title_slug"
+              >
                 <v-img
                   :src="getPublicImageThumbnail(category.image)"
                   :aspect-ratio="16 / 9"
@@ -21,11 +28,21 @@
 
             <v-col>
               <div>
-                <v-btn depressed color="accent" small :to="'/category/'+category.slug">
+                <v-btn
+                  depressed
+                  color="accent"
+                  small
+                  :to="'/category/' + category.slug"
+                >
                   <small>{{ category.category }}</small>
                 </v-btn>
 
-                <router-link :to="'/category/'+category.slug+'?q='+category.title_slug" class="text-decoration-none">
+                <router-link
+                  :to="
+                    '/category/' + category.slug + '?q=' + category.title_slug
+                  "
+                  class="text-decoration-none"
+                >
                   <h5 class="text-h7 font-weight-bold primary--text py-3">
                     {{ category.title }}
                   </h5>
@@ -43,9 +60,12 @@
       <v-divider></v-divider>
       <v-card
         v-for="category in categoryStore.categories"
-        color="accent" dark flat
-        :key="category.id" class="my-2"
-        :to="'/category/'+category.slug"
+        color="accent"
+        dark
+        flat
+        :key="category.id"
+        class="my-2"
+        :to="'/category/' + category.slug"
       >
         <v-card-text
           class="d-flex justify-space-between align-center white--text"
@@ -109,26 +129,24 @@
 </template>
 
 <script>
+import { useCategoryStore } from "@/stores/category";
 
-  import { useCategoryStore } from '@/stores/category'
+export default {
+  name: "SideBar",
 
-  export default {
-    name: "SideBar",
+  mounted() {
+    this.categoryStore.getCategories();
+    this.categoryStore.getPopular5();
+  },
 
-    mounted() {
-      this.categoryStore.getCategories()
-      this.categoryStore.getPopular5()
-    },
+  data() {
+    return {
+      categoryStore: useCategoryStore(),
+    };
+  },
 
-    data() {
-      return {
-        categoryStore: useCategoryStore()
-      }
-    },
-
-    components: {
-      AddToHomeBtn: () => import("@/components/helpers/AddToHomeBtn.vue"),
-    },    
-  };
-
+  components: {
+    AddToHomeBtn: () => import("@/components/helpers/AddToHomeBtn.vue"),
+  },
+};
 </script>

@@ -1,18 +1,17 @@
 <template>
-    <div class="text-center">
-        <v-dialog
-          v-model="categoryStore.searchDialog"
-          activator="parent"
-          width="900"
-        >
-
-          <v-card theme="dark" class="pa-8 d-flex justify-center flex-wrap">
-            <v-col col="12" lg="10" md="10">
-            <v-responsive>
+  <div class="text-center">
+    <v-dialog
+      v-model="categoryStore.searchDialog"
+      activator="parent"
+      width="900"
+    >
+      <v-card theme="dark" class="pa-8 d-flex justify-center flex-wrap">
+        <v-col col="12" lg="10" md="10">
+          <v-responsive>
             <v-img
-                class="mx-auto mt-10 mb-14"
-                max-width="50"
-                src="./images/icon/icon.PNG"
+              class="mx-auto mt-10 mb-14"
+              max-width="50"
+              src="./images/icon/icon.PNG"
             ></v-img>
             <v-autocomplete
               v-model="model"
@@ -45,16 +44,16 @@
                   class="white--text"
                   v-on="on"
                 >
-                  <v-icon left>
-                    mdi-book
-                  </v-icon>
+                  <v-icon left> mdi-book </v-icon>
                   <span v-text="item.title"></span>
                 </v-chip>
               </template>
               <template v-slot:item="{ item }">
                 <v-list-item-content>
                   <v-list-item-title v-text="item.title"></v-list-item-title>
-                  <v-list-item-subtitle v-text="item.category.category"></v-list-item-subtitle>
+                  <v-list-item-subtitle
+                    v-text="item.category.category"
+                  ></v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-action>
                   <v-icon>mdi-book</v-icon>
@@ -62,78 +61,80 @@
               </template>
             </v-autocomplete>
             <v-row justify="center" dense class="mt-8">
-                <v-card-actions>
-                    <v-btn color="primary" block @click="categoryStore.searchDialog = false">Close Dialog</v-btn>
-                </v-card-actions>
+              <v-card-actions>
+                <v-btn
+                  color="primary"
+                  block
+                  @click="categoryStore.searchDialog = false"
+                  >Close Dialog</v-btn
+                >
+              </v-card-actions>
             </v-row>
-
-            </v-responsive>
-          </v-col>
-        </v-card>
-
-        </v-dialog>
-    </div>
-  </template>
+          </v-responsive>
+        </v-col>
+      </v-card>
+    </v-dialog>
+  </div>
+</template>
 
 <script>
-
-import { useCategoryStore } from '@/stores/category'
-const categoryStore = useCategoryStore()
+import { useCategoryStore } from "@/stores/category";
+const categoryStore = useCategoryStore();
 
 export default {
-  data () {
+  data() {
     return {
-        categoryStore: useCategoryStore(),
+      categoryStore: useCategoryStore(),
 
-        isLoading: false,
-        items: [],
-        model: null,
-        search: null,
-        url: import.meta.env.VITE_NODE_ENV == 'development' ? import.meta.env.VITE_APP_URL : import.meta.env.VITE_APP_URL_PROD
-    }
+      isLoading: false,
+      items: [],
+      model: null,
+      search: null,
+      url:
+        import.meta.env.VITE_NODE_ENV == "development"
+          ? import.meta.env.VITE_APP_URL
+          : import.meta.env.VITE_APP_URL_PROD,
+    };
   },
 
-
   watch: {
-      model (val) {
-        if (val != null) {
-
-          this.isLoading = true
-          fetch(`${this.url}search-url-slug?id=${val}`)
-            .then(res => res.clone().json())
-            .then(res => {
-              this.$router.push(`/category/${res.category.slug}?q=${res.title_slug}`).catch(err => {});
-
-            })
-            .catch(err => {
-              console.log(err)
-            })
-            .finally(() => {
-              this.isLoading = false
-              categoryStore.searchDialog = false
-            })
-        }
-      },
-      search (val) {
-        // Items have already been loaded
-        // if (this.items.length > 0) return
-
-
-        if (val.length > 1) {
-          this.isLoading = true
-          // Lazily load input items
-          fetch(`${this.url}search?q=${val}`)
-            .then(res => res.clone().json())
-            .then(res => {
-              this.items = res.data
-            })
-            .catch(err => {
-              console.log(err)
-            })
-            .finally(() => (this.isLoading = false))
-        }
-      },
+    model(val) {
+      if (val != null) {
+        this.isLoading = true;
+        fetch(`${this.url}search-url-slug?id=${val}`)
+          .then((res) => res.clone().json())
+          .then((res) => {
+            this.$router
+              .push(`/category/${res.category.slug}?q=${res.title_slug}`)
+              .catch((err) => {});
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            this.isLoading = false;
+            categoryStore.searchDialog = false;
+          });
+      }
     },
+    search(val) {
+      // Items have already been loaded
+      // if (this.items.length > 0) return
 
-}
+      if (val.length > 1) {
+        this.isLoading = true;
+        // Lazily load input items
+        fetch(`${this.url}search?q=${val}`)
+          .then((res) => res.clone().json())
+          .then((res) => {
+            this.items = res.data;
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => (this.isLoading = false));
+      }
+    },
+  },
+};
 </script>

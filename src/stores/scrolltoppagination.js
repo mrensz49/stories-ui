@@ -1,23 +1,21 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
 export const useScrollTopPagination = defineStore({
+  id: "scrolltoppagination",
 
-    id: 'scrolltoppagination',
+  actions: {
+    scroll() {
+      window.scrollTo({
+        top: 150,
+        behavior: "smooth",
+      });
+    },
 
-
-    actions: {
-        scroll() {
-            window.scrollTo({
-                top: 150,
-                behavior: "smooth"
-            });         
-        },
-
-        scrollTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });         
-        },        
-    }
-})
+    scrollTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    },
+  },
+});
