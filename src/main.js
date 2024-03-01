@@ -3,6 +3,7 @@ import { createPinia, PiniaVuePlugin } from "pinia";
 import App from "./App.vue";
 import vuetify from "./plugins/vuetify";
 import router from "./router";
+import { utilsMixin } from './services/utilsMixin.js';
 
 import axios from "axios";
 import VueAxios from "vue-axios";
@@ -66,45 +67,31 @@ Vue.component("topScroll", topScroll);
 Vue.use(VueSocialSharing);
 Vue.use(VueMeta);
 Vue.use(Toast, options);
+Vue.mixin(utilsMixin);
 
-Vue.mixin({
-  methods: {
-    showIcon(type) {
-      const iconMap = {
-        like: "mdi-thumb-up",
-        love: "mdi-heart",
-        happy: "mdi-emoticon-happy-outline",
-        sad: "mdi-emoticon-sad-outline",
-        angry: "mdi-emoticon-angry-outline",
-      };
-      return iconMap[type] || "mdi-thumb-up"; // Default to 'mdi-thumb-up' if type is not found
-    },
-    getImageUrl(name) {
-      return new URL(`/images/bg/${name}`, import.meta.url).href;
-    },
+Vue.filter('formatText', function(value) {
+  // Replace triple asterisks with bold and italic tags
+  value = value.replace(/\*{3}(.*?)\*{3}/g, '<b><i>$1</i></b>');
 
-    getPublicImage(name = "no-image.jpg") {
-      const baseURL = this.getBaseURL();
-      return `${baseURL}storage/${name}`;
-    },
+  // Replace double asterisks with bold tags
+  value = value.replace(/\*{2}(.*?)\*{2}/g, '<b>$1</b>');
 
-    getPublicImageThumbnail(name = "../no-image.jpg") {
-      const baseURL = this.getBaseURL();
-      return `${baseURL}storage/${name}`;
-    },
+  // Replace single asterisks with italic tags
+  value = value.replace(/\*(.*?)\*/g, '<i>$1</i>');
 
-    getBaseURL() {
-      return import.meta.env.VITE_NODE_ENV === "development"
-        ? import.meta.env.VITE_APP_URL
-        : import.meta.env.VITE_APP_URL_PROD + "public/";
-    },
+  // Replace hashtags with header tags
+  value = value.replace(/#{1,6}\s(.*?)\n/g, function(match, p1) {
+    var level = match.split(" ")[0].length;
+    return '<h' + level + '>' + p1 + '</h' + level + '>';
+  });
 
-    getHumanDateDay(date) {
-      return (
-        moment(date, "YYYY-MM-DD H:m").format("MMM. DD, YYYY - h:mma") || ""
-      );
-    },
-  },
+  // Replace backticks with code blocks
+  value = value.replace(/`(.*?)`/g, '<code>$1</code>');
+
+  // Replace new lines with <br> tags
+  value = value.replace(/\n/g, '<br>');
+
+  return value;
 });
 
 const pinia = createPinia();

@@ -22,18 +22,19 @@
             >
           </div>
 
-          <div class="text-h5 font-weight-bold primary--text pt-4">
-            <h4>{{ categoryStore.story.story.title }}</h4>
+          <div class="text-h7 font-weight-bold primary--text pt-4">
+            <h1>{{ categoryStore.story.story.title }}</h1>
           </div>
 
           <v-divider class="my-4"></v-divider>
 
           <v-card flat color="transparent">
             <v-card-text>
+
               <div
                 class="text-subtitle-1 primary--text text-justify"
-                v-html="categoryStore.story.story.data"
-              ></div>
+                v-html="$options.filters.formatText(categoryStore.story.story.data)"
+              ></div>              
             </v-card-text>
           </v-card>
 
@@ -45,7 +46,7 @@
               colored-border
               color="orange"
             >
-              <div v-html="categoryStore.story.story.moral_lesson"></div>
+              <div v-html="$options.filters.formatText(categoryStore.story.story.moral_lesson)"></div>
             </v-alert>
           </div>
 
@@ -66,7 +67,7 @@
                 network="facebook"
                 :url="url_share"
                 :title="categoryStore.story.story.title"
-                :description="description"
+                :description="descriptionSocial"
                 quote="You will learn most things by looking, but reading gives understanding. - Paul Rand"
                 hashtags="storiesforyou"
               >
@@ -89,7 +90,7 @@
                 network="twitter"
                 :url="url_share"
                 :title="categoryStore.story.story.title"
-                :description="description"
+                :description="descriptionSocial"
                 quote="You will learn most things by looking, but reading gives understanding. - Paul Rand"
                 hashtags="storiesforyou"
                 class="text-decoration-none"
@@ -125,28 +126,29 @@ export default {
   name: "Home",
 
   metaInfo() {
-    const title = this.$route.query.q
-      .split("-")
-      .join(" ")
-      .replace(/\w\S*/g, function (txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      });
+    const title = this.categoryStore.story && this.categoryStore.story.story && this.categoryStore.story.story.moral_lesson
+    ? this.categoryStore.story.story.title
+    : 'storiesforyou'; 
+
+  // Check if story and its nested properties are available
+  const description = this.categoryStore.story && this.categoryStore.story.story && this.categoryStore.story.story.moral_lesson
+    ? this.removeHtmlTags(this.categoryStore.story.story.moral_lesson)
+    : this.descriptionSocial;      
 
     return {
       title: title,
-      titleTemplate: "",
+      titleTemplate: '%s | storiesforyou',
+      description: description,
       htmlAttrs: {
         lang: "en",
         amp: true,
       },
       meta: [
-        { vmid: "description", name: "description", content: this.description },
+        { vmid: title, name: title, content: description },
         {
           vmid: "og:title",
           property: "og:title",
-          content:
-            title &&
-            title.charAt(0).toUpperCase() + title.slice(1).toLowerCase(),
+          content: title && title.charAt(0).toUpperCase() + title.slice(1).toLowerCase(),
           template: (chunk) => `${chunk} | storiesforyou`,
         },
         {
@@ -158,41 +160,53 @@ export default {
     };
   },
 
-  mounted() {
-    this.categoryStore.getStory({
-      name: this.$route.params.name,
-      title: this.$route.query.q,
-    });
+  async created() {
+    await this.fetchData();
+  },
+
+  methods: {
+    async fetchData() {
+      try {
+        await this.categoryStore.getStory({
+          name: this.$route.params.name,
+          title: this.$route.query.q,
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    },
+
+    open() {
+      console.log("open");
+    },
+
+    change() {
+      console.log("change");
+    },
+
+    close() {
+      console.log("close");
+    },
+
+    removeHtmlTags(text) {
+      // Use regex to remove HTML tags
+      return text.replace(/<[^>]*>/g, '');
+    }    
+  },
+
+  watch: {
+    $route: function () {
+      this.fetchData();
+    },
   },
 
   data() {
     return {
       categoryStore: useCategoryStore(),
       url_share: window.location.href,
-      description:
+      descriptionSocial:
         "When you read an online story, you're not just reading it on your own. You're joining a community of readers and authors who are passionate about stories. You can share your thoughts on the story with other readers, and you can even leave comments for the story.",
     };
-  },
-
-  methods: {
-    open() {
-      console.log("open");
-    },
-    change() {
-      console.log("change");
-    },
-    close() {
-      console.log("close");
-    },
-  },
-
-  watch: {
-    $route: function () {
-      this.categoryStore.getStory({
-        name: this.$route.params.name,
-        title: this.$route.query.q,
-      });
-    },
   },
 
   components: {
@@ -201,4 +215,5 @@ export default {
     SuggestedStory: () => import("@/components/post/SuggestedStory"),
   },
 };
+
 </script>

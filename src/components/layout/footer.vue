@@ -106,7 +106,7 @@
           Copyright &copy;
           <a class="white--text" target="_blank">RS</a>
           {{ new Date().getFullYear() }}. All rights reserved.
-          <small>v0.3.7</small>
+          <small>v0.3.9</small>
         </div>
       </v-container>
     </v-card>

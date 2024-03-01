@@ -5,7 +5,7 @@
         <div>
           <div>
             <div>
-              <h2 class="text-h4 font-weight-bold">Categories</h2>
+              <h1 class="text-h4 font-weight-bold">Categories</h1>
 
               <h4 class="text-h6">Select your favourite category.</h4>
             </div>

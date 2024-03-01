@@ -4,7 +4,7 @@
       <v-col cols="12" lg="8" xl="8">
         <div>
           <div>
-            <h2 class="text-h4 font-weight-bold">Moral Lesson</h2>
+            <h1 class="text-h4 font-weight-bold">Moral Lesson</h1>
 
             <h4 class="text-h6">
               The lessons that we learn from our experiences, from the stories
@@ -67,7 +67,7 @@
                     <div
                       class="text-body-1 font-weight-regular pt-3 text--secondary"
                       v-html="
-                        moral_lesson.moral_lesson.substring(0, 200) + '...'
+                        $options.filters.formatText(moral_lesson.moral_lesson.substring(0, 200) + '...')
                       "
                     ></div>
                   </div>

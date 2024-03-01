@@ -88,7 +88,7 @@
                         <div
                           class="text-h7 py-3"
                           style="line-height: 1.2"
-                          v-html="moral.moral_lesson.substring(0, 300) + '...'"
+                          v-html="$options.filters.formatText(moral.moral_lesson.substring(0, 300) + '...')"
                         ></div>
                       </v-card-text>
                     </div>
